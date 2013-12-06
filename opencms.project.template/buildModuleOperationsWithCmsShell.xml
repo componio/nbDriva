@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="changeme" default="all" basedir=".">
+    <!--
+    <property name="modulename" value="new.test.module1"/>
+    <property name="modulepath" value="/system/modules"/>
+    <property name="scriptDir" value="./scripts"/>
+    <property name="packagePath" value="./package"/>
+    <property name="cmsSync" value="C:/cmsSync"/>
+    <property name="cmsWebInfDir" value="C:/Develop/apache-tomcat-7.0.42-ex2/webapps/opencms/WEB-INF"/>
+    -->
+    <target name="prepare_createNewModule">
+        <replaceregexp file="${scriptDir}/createNewModule.txt"
+                        match="login .*"
+                        replace="login &quot;${username}&quot; &quot;${password}&quot;"
+                        byline="true"/>
+        <replaceregexp file="${scriptDir}/createNewModule.txt"
+                       match="createNewModule .*"
+                       replace="createNewModule &quot;${modulename}&quot; &quot;${module.version}&quot;"
+                       byline="true"/>
+    </target>
+    
+    <target name="prepare_exportModule">
+        <replaceregexp file="${scriptDir}/exportModule.txt"
+                        match="login .*"
+                        replace="login &quot;${username}&quot; &quot;${password}&quot;"
+                        byline="true"/>
+        <replaceregexp file="${scriptDir}/exportModule.txt"
+                       match="exportModule .*"
+                       replace="exportModule &quot;${modulename}&quot;"
+                       byline="true"/>
+    </target>
+    
+   
+    
+    <target name="prepare_importModule">
+        <path id="importZip">
+            <fileset dir="${packagePath}">
+                <include name="${modulename}_${module.version}*.zip"/>
+            </fileset>
+        </path>
+        <property name="importFileWithBackSlash" value="${toString:importZip}"/>
+        <!-- replaces the backslashes of the path(under Windows) with slashes, because
+             backslahes of the path aren't visible in the cms scripts  
+        -->
+        <loadresource property="importFileWithSlash">
+            <propertyresource name="importFileWithBackSlash"/>
+            <filterchain>
+                <tokenfilter>
+                    <filetokenizer/>
+                    <replacestring from="\" to="/"/>
+                </tokenfilter>
+            </filterchain>
+        </loadresource>
+        <replaceregexp file="${scriptDir}/importModule.txt"
+                        match="login .*"
+                        replace="login &quot;${username}&quot; &quot;${password}&quot;"
+                        byline="true"/>
+        <replaceregexp file="${scriptDir}/importModule.txt"
+                       match="importModule .*"
+                       replace="importModule &quot;${importFileWithSlash}&quot;"
+                       byline="true"/>
+    </target>
+    
+    <target name="prepare_syncFolder">
+        <replaceregexp file="${scriptDir}/syncFolders.txt"
+                        match="login .*"
+                        replace="login &quot;${username}&quot; &quot;${password}&quot;"
+                        byline="true"/>
+        <replaceregexp file="${scriptDir}/syncFolders.txt"
+                       match="syncRFSandVFS .*"
+                       replace="syncRFSandVFS &quot;${cmsSync}&quot; &quot;${modulepath}/${modulename}&quot;"
+                       byline="true"/>
+    </target>
+    
+    <target name="run_createNewModule" depends="prepare_createNewModule">
+        <java classname="main.CmsShellMain">
+            <arg line="-webInf ${cmsWebInfDir} -script ${scriptDir}/createNewModule.txt -additional additionalcommands.ModuleCommands"/>
+            <classpath path="build">
+                <dirset dir="${build.classes.dir}">
+                    <include name="**/*.class"/>
+                </dirset>
+                <pathelement path="${java.class.path}"/>
+                <pathelement path="${javac.classpath}"/>
+            </classpath>
+        </java>
+    </target>
+    
+    <target name="run_exportModule" depends="prepare_exportModule">
+        <java classname="main.CmsShellMain">
+            <arg line="-webInf ${cmsWebInfDir} -script ${scriptDir}/exportModule.txt -additional additionalcommands.ModuleCommands"/>
+            <classpath path="build">
+                <dirset dir="${build.classes.dir}">
+                    <include name="**/*.class"/>
+                </dirset>
+                <pathelement path="${java.class.path}"/>
+                <pathelement path="${javac.classpath}"/>
+            </classpath>
+        </java>
+    </target>
+    
+    <target name="run_importModule" depends="prepare_importModule">
+        <java classname="main.CmsShellMain">
+            <arg line="-webInf ${cmsWebInfDir} -script ${scriptDir}/importModule.txt -additional additionalcommands.ModuleCommands"/>
+            <classpath path="build">
+                <dirset dir="${build.classes.dir}">
+                    <include name="**/*.class"/>
+                </dirset>
+                <pathelement path="${java.class.path}"/>
+                <pathelement path="${javac.classpath}"/>
+            </classpath>
+        </java>
+    </target>
+    
+    <target name="run_syncFolder" depends="prepare_syncFolder">
+        <java classname="main.CmsShellMain">
+            <arg line="-webInf ${cmsWebInfDir} -script ${scriptDir}/syncFolders.txt -additional additionalcommands.ModuleCommands"/>
+            <classpath path="build">
+                <dirset dir="${build.classes.dir}">
+                    <include name="**/*.class"/>
+                </dirset>
+                <pathelement path="${java.class.path}"/>
+                <pathelement path="${javac.classpath}"/>
+            </classpath>
+        </java>
+    </target>
+</project>

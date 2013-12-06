@@ -1,0 +1,8 @@
+# Turn echo on
+echo on
+# Login the Admin user
+login Admin admin
+createDefaultProject "Offline" "The Offline Project"
+exportModule "new.test.module1"
+# Publish the project
+unlockCurrentProject

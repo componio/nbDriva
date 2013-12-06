@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="opencms.project.template" default="default" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+   <description>Builds, tests, and runs the project new.test.module1.</description>
+    <import file="nbproject/build-impl.xml"/>
+    <!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties 
+      -post-init:                called after initialization of project properties 
+      -pre-compile:              called before javac compilation 
+      -post-compile:             called after javac compilation 
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-dist:                 called before archive building 
+      -post-dist:                called after archive building 
+      -post-clean:               called after cleaning build products 
+      -pre-run-deploy:           called before deploying
+      -post-run-deploy:          called after deploying
+
+    Example of pluging an obfuscator after the compilation could look like 
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Other way how to customize the build is by overriding existing main targets.
+    The target of interest are: 
+
+      init-macrodef-javac:    defines macro for javac compilation
+      init-macrodef-junit:   defines macro for junit execution
+      init-macrodef-debug:    defines macro for class debugging
+      do-dist:                archive building
+      run:                    execution of project 
+      javadoc-build:          javadoc generation 
+
+    Example of overriding the target for project execution could look like 
+
+        <target name="run" depends="<PROJNAME>-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that overridden target depends on jar target and not only on 
+    compile target as regular run target does. Again, for list of available 
+    properties which you can use check the target you are overriding in 
+    nbproject/build-impl.xml file. 
+
+    -->
+    
+    <property file="./module.properties"/>
+    <loadresource property="cmsSyncWithSlash">
+        <propertyresource name="cmsSync"/>
+        <filterchain>
+            <tokenfilter>
+                <filetokenizer/>
+                <replacestring from="\" to="/"/>
+            </tokenfilter>
+        </filterchain>
+    </loadresource>
+    
+    <target name="-post-compile">
+        <echo message="Copying new.test.module1 to cmsSyncSystem"/>
+        <copy todir="${cmsSync}/system/${acPackage}/classes">
+            <fileset dir="build/web/WEB-INF/classes"/>
+        </copy>
+        <copy todir="${cmsSync}/system/${acPackage}/elements">
+            <fileset dir="./WEB/elements">
+                <exclude name=".svn"/>
+            </fileset>
+        </copy>
+        <copy todir="${cmsSync}/system/${acPackage}/formatters">
+            <fileset dir="./WEB/formatters">
+                <exclude name=".svn"/>
+            </fileset>
+        </copy>
+        <copy todir="${cmsSync}/system/${acPackage}/lib">
+            <fileset dir="./WEB/WEB-INF/lib">
+                <exclude name=".svn"/>
+            </fileset>
+        </copy>
+        <copy todir="${cmsSync}/system/${acPackage}/resources">
+            <fileset dir="./WEB/resources">
+                <exclude name=".svn"/>
+            </fileset>
+        </copy>
+        <copy todir="${cmsSync}/system/${acPackage}/templates">
+            <fileset dir="./WEB/templates">
+                <exclude name=".svn"/>
+            </fileset>
+        </copy>
+        <copy todir="${cmsSync}/system/${acPackage}/schemas">
+            <fileset dir="./WEB/schemas">
+                <exclude name=".svn"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${cmsSync}/system/${acPackage}/doc">
+            <fileset dir="./WEB/doc">
+                <exclude name=".svn"/>
+            </fileset>
+        </copy>
+    </target>
+   
+    <target name="-post-clean" >
+        <echo message="Cleaning cmsSyncSystem: ${cmsSync}/system/${acPackage}"/>
+        <delete includeEmptyDirs="true" quiet="true">
+            <fileset dir="${cmsSync}/system/${acPackage}"/>
+        </delete>
+    </target>
+    
+    <target name="shell_create_new_module">
+        <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_createNewModule">
+            <property name="cmsSync" value="${cmsSyncWithSlash}"/>
+        </ant>
+    </target>
+    
+    <target name="shell_export_module">
+        <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_exportModule">
+            <property name="cmsSync" value="${cmsSyncWithSlash}"/>
+        </ant>
+    </target>
+    
+    <target name="shell_import_module">
+        <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_importModule">
+            <property name="cmsSync" value="${cmsSyncWithSlash}"/>
+        </ant>
+    </target>
+    
+    <target name="shell_sync_module">
+        <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_syncFolder">
+            <property name="cmsSync" value="${cmsSyncWithSlash}"/>
+        </ant>
+    </target>
+    
+    <target name="move_module_to_packagedir" depends="shell_export_module">
+        <path id="importZip">
+            <fileset dir="${moduleDir}">
+                <include name="${modulename}*.zip"/>
+            </fileset>
+        </path>
+        <property name="importFileWithBackSlash" value="${toString:importZip}"/>
+        <condition property="zip.file.not.found">
+            <equals arg1="${importFileWithBackSlash}" arg2=""/>
+        </condition>
+    </target>
+    
+    <target name="move_module_check_property" unless="zip.file.not.found" depends="move_module_to_packagedir">
+        <move file="${importFileWithBackSlash}" tofile="${packagePath}/${modulename}_${module.version}.zip" failonerror="true"/>
+    </target>
+    
+    <target name="build_new_module" depends="clean,dist,shell_create_new_module,shell_sync_module"/>
+    <target name="build_import_module" depends="clean,dist,shell_import_module,shell_sync_module"/>
+    <target name="build_sync_folder_standalone" depends="clean,dist,shell_sync_module"/>
+    <target name="build_cms_reverse_sync" depends="clean,dist,shell_export_module,move_module_check_property"/>
+  
+    <!-- used only at changes in opencms-project-template, which is used in plugin,
+         this target can be deleted in default projects
+    -->  
+    <target name="delete_zipfile">
+        <delete file="./OpenCmsProjectStructureTemplateProject.zip"/>
+    </target>
+    
+    <!-- used only at changes in opencms-project-template, which is used in plugin,
+         this target can be deleted in default projects
+    -->
+    <target name="zipme" description="Zip the application to the sample project" depends="delete_zipfile">
+        <zip basedir="." destfile="./OpenCmsProjectStructureTemplateProject.zip">
+            <exclude name="**/build/"/>
+            <exclude name="**/dist/"/>
+            <exclude name="**/nbproject/private/"/>
+        </zip>
+    </target>
+    
+    <!--
+    ############################################################################
+    ################################ APACHE IVY SECTION ########################
+    ############################################################################
+    
+    NOTE: This section is an alternative attempt to resolve library dependencies 
+    half automatically for opencms on which this project rely.
+    If someone don't want to download and install Apache Ivy the library dependencies
+    have to be resolved manually. The required jars can be found in the source
+    bundles of OpenCms 8.5.x at http://www.opencms.org/de/download/opencms.html
+    or at the github repository 
+    (see: http://www.opencms.org/de/development/revision-control.html)
+    
+    ############################################################################
+    ############################################################################
+    ############################################################################
+    -->
+    <property name="ivy.install.version" value="2.3.0" />
+    <property name="ivy.jar.dir" value="${basedir}/ivy" />
+    <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy-${ivy.install.version}.jar" />
+    <property name="ivy.resolved.libs.dir" value="${basedir}/lib" />
+    
+    <!-- downloading apache ivy dependency management tool -->
+    <target name="ivy-download" unless="skip.download" depends="init">
+        <mkdir dir="${ivy.jar.dir}"/>
+        <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true"/>
+    </target>
+    <!-- installig apache ivy -->
+    <target name="ivy-install" depends="ivy-download" >
+        <path id="ivy.lib.path">
+            <fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+    </target>
+    <!-- resolving dependencies using ivy -->
+    <target name="ivy-resolve-dependencies" depends="ivy-install">
+        <ivy:retrieve pattern="${ivy.resolved.libs.dir}/[conf]/[artifact]-[type]-[revision].[ext]"/>
+    </target>
+    <!-- ########################## END OF IVY SECTION ##################### -->
+</project>
