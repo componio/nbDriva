@@ -81,6 +81,16 @@
     </loadresource>
     
     <target name="-post-compile">
+        
+        <!-- ####### CREATE PROJECT STRUCTURE ####### -->
+        <mkdir dir="${basedir}/ext_packages"/>
+        <mkdir dir="${basedir}/initial_setup"/>
+        <mkdir dir="${basedir}/content"/>
+        <mkdir dir="${basedir}/config"/>
+        <mkdir dir="${basedir}/package"/>
+        <mkdir dir="${basedir}/test"/>
+        <!-- ####### END OF CREATED PROJECT DIRECTORIES ####### -->
+        
         <echo message="Copying new.test.module1 to cmsSyncSystem"/>
         <copy todir="${cmsSync}/system/${acPackage}/classes">
             <fileset dir="build/web/WEB-INF/classes"/>
