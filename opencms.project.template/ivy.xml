@@ -3,7 +3,12 @@
     <info organisation="componio" module="libraries"/>
     <dependencies>
         <dependency org="org.opencms" name="opencms-core" rev="8.5.2" transitive="true"/>
-        <dependency org="org.opencms" name="opencms-setup" rev="8.5.2" transitive="true"/> 
+        <dependency org="org.opencms" name="opencms-setup" rev="8.5.2" transitive="true"/>
+        <dependency org="org.apache.chemistry.opencmis" name="chemistry-opencmis-client-api" rev="0.7.0" transitive="true"/>
+        <dependency org="org.apache.chemistry.opencmis" name="chemistry-opencmis-client-impl" rev="0.7.0" transitive="true"/>
+        <dependency org="org.apache.chemistry.opencmis" name="chemistry-opencmis-client-bindings" rev="0.7.0" transitive="true"/>
+        <dependency org="org.apache.chemistry.opencmis" name="chemistry-opencmis-commons-impl" rev="0.7.0" transitive="true"/>
+        <dependency org="org.apache.chemistry.opencmis" name="chemistry-opencmis-commons-api" rev="0.7.0" transitive="true"/>
         <dependency org="mysql" name="mysql-connector-java" rev="5.1.26" transitive="true"/>
         <dependency org="junit" name="junit" rev="4.11" transitive="true"/>
     </dependencies>

@@ -140,26 +140,21 @@
         </delete>
     </target>
     
+    <!--########################################################################
+    ############################ OpenCms Operations Section ####################
+    ############################################################################ 
+    -->
+    
+    <!-- ######################## CREATION OF OPENCMS MODULE ################-->
     <target name="shell_create_new_module">
         <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_createNewModule">
             <property name="cmsSync" value="${cmsSyncWithSlash}"/>
         </ant>
     </target>
     
+    <!-- ######################## EXPORT OF OPENCMS MODULE ##################-->
     <target name="shell_export_module">
         <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_exportModule">
-            <property name="cmsSync" value="${cmsSyncWithSlash}"/>
-        </ant>
-    </target>
-    
-    <target name="shell_import_module">
-        <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_importModule">
-            <property name="cmsSync" value="${cmsSyncWithSlash}"/>
-        </ant>
-    </target>
-    
-    <target name="shell_sync_module">
-        <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_syncFolder">
             <property name="cmsSync" value="${cmsSyncWithSlash}"/>
         </ant>
     </target>
@@ -180,11 +175,49 @@
         <move file="${importFileWithBackSlash}" tofile="${packagePath}/${modulename}_${module.version}.zip" failonerror="true"/>
     </target>
     
+    <!-- ######################## IMPORT OF OPENCMS MODULE ##################-->
+    <target name="shell_import_module">
+        <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_importModule">
+            <property name="cmsSync" value="${cmsSyncWithSlash}"/>
+        </ant>
+    </target>
+    <!-- ####################################################################-->
+    
+    <!-- ############### SYNCHRONIZATION OF OPENCMS MODULE ##################-->
+     <target name="check_sync_over_cmis">
+        <condition property="sync.cmis.property.is.true">
+            <equals arg1="${syncOverCMIS}" arg2="true"/>
+        </condition>
+    </target>
+    
+    <target name="shell_sync_module" depends="check_sync_over_cmis,shell_sync_module_over_cmis,shell_sync_module_over_shell"/>
+    
+    <target name="shell_sync_module_over_cmis" if="sync.cmis.property.is.true">
+        <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_syncFolderOverCMIS">
+            <property name="cmsSync" value="${cmsSyncWithSlash}"/>
+        </ant>
+    </target>
+    
+    <target name="shell_sync_module_over_shell" unless="sync.cmis.property.is.true">
+        <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_syncFolder">
+            <property name="cmsSync" value="${cmsSyncWithSlash}"/>
+        </ant>
+    </target>
+    
+    <!-- ################################################################### -->
+        
+    
+    
     <target name="build_new_module" depends="clean,dist,shell_create_new_module,shell_sync_module"/>
     <target name="build_import_module" depends="clean,dist,shell_import_module,shell_sync_module"/>
     <target name="build_sync_folder_standalone" depends="clean,dist,shell_sync_module"/>
     <target name="build_cms_reverse_sync" depends="clean,dist,shell_export_module,move_module_check_property"/>
   
+     <!--########################################################################
+         ################# End of OpenCms Operations Section ####################
+         ######################################################################## 
+    -->
+    
     <!-- used only at changes in opencms-project-template, which is used in plugin,
          this target can be deleted in default projects
     -->  

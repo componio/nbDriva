@@ -7,12 +7,15 @@
     <property name="packagePath" value="./package"/>
     <property name="cmsSync" value="C:/cmsSync"/>
     <property name="cmsWebInfDir" value="C:/Develop/apache-tomcat-7.0.42-ex2/webapps/opencms/WEB-INF"/>
+    <property name="syncOverCMIS" value="false"/>
+    <property name="cmsRepoURL" value="http://localhost:8080/opencms/cmisatom/"/>
+    <property name="cmsRepoId" value="cms-offline"/>
     -->
     <target name="prepare_createNewModule">
         <replaceregexp file="${scriptDir}/createNewModule.txt"
-                        match="login .*"
-                        replace="login &quot;${username}&quot; &quot;${password}&quot;"
-                        byline="true"/>
+                       match="login .*"
+                       replace="login &quot;${username}&quot; &quot;${password}&quot;"
+                       byline="true"/>
         <replaceregexp file="${scriptDir}/createNewModule.txt"
                        match="createNewModule .*"
                        replace="createNewModule &quot;${modulename}&quot; &quot;${module.version}&quot;"
@@ -21,9 +24,9 @@
     
     <target name="prepare_exportModule">
         <replaceregexp file="${scriptDir}/exportModule.txt"
-                        match="login .*"
-                        replace="login &quot;${username}&quot; &quot;${password}&quot;"
-                        byline="true"/>
+                       match="login .*"
+                       replace="login &quot;${username}&quot; &quot;${password}&quot;"
+                       byline="true"/>
         <replaceregexp file="${scriptDir}/exportModule.txt"
                        match="exportModule .*"
                        replace="exportModule &quot;${modulename}&quot;"
@@ -52,9 +55,9 @@
             </filterchain>
         </loadresource>
         <replaceregexp file="${scriptDir}/importModule.txt"
-                        match="login .*"
-                        replace="login &quot;${username}&quot; &quot;${password}&quot;"
-                        byline="true"/>
+                       match="login .*"
+                       replace="login &quot;${username}&quot; &quot;${password}&quot;"
+                       byline="true"/>
         <replaceregexp file="${scriptDir}/importModule.txt"
                        match="importModule .*"
                        replace="importModule &quot;${importFileWithSlash}&quot;"
@@ -63,9 +66,9 @@
     
     <target name="prepare_syncFolder">
         <replaceregexp file="${scriptDir}/syncFolders.txt"
-                        match="login .*"
-                        replace="login &quot;${username}&quot; &quot;${password}&quot;"
-                        byline="true"/>
+                       match="login .*"
+                       replace="login &quot;${username}&quot; &quot;${password}&quot;"
+                       byline="true"/>
         <replaceregexp file="${scriptDir}/syncFolders.txt"
                        match="syncRFSandVFS .*"
                        replace="syncRFSandVFS &quot;${cmsSync}&quot; &quot;${modulepath}/${modulename}&quot;"
@@ -114,6 +117,18 @@
     <target name="run_syncFolder" depends="prepare_syncFolder">
         <java classname="main.CmsShellMain">
             <arg line="-webInf ${cmsWebInfDir} -script ${scriptDir}/syncFolders.txt -additional additionalcommands.ModuleCommands"/>
+            <classpath path="build">
+                <dirset dir="${build.classes.dir}">
+                    <include name="**/*.class"/>
+                </dirset>
+                <pathelement path="${java.class.path}"/>
+                <pathelement path="${javac.classpath}"/>
+            </classpath>
+        </java>
+    </target>
+    <target name="run_syncFolderOverCMIS">
+        <java classname="cmis.CmisSyncModule">
+            <arg line="-user ${username} -password ${password} -repoUrl ${cmsRepoURL} -repoId ${cmsRepoId} -rfs ${cmsSync}/${modulepath}/${modulename} -vfs ${modulepath}/${modulename}"/>
             <classpath path="build">
                 <dirset dir="${build.classes.dir}">
                     <include name="**/*.class"/>

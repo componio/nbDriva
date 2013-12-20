@@ -1,8 +1,8 @@
 # Turn echo on
 echo on
 # Login the Admin user
-login Admin admin
+login "Admin" "admin"
 createDefaultProject "Offline" "The Offline Project"
-exportModule "new.test.module1"
+exportModule "opencms.project.template"
 # Publish the project
 unlockCurrentProject

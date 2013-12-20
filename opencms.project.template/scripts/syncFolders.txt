@@ -1,8 +1,8 @@
 # Turn echo on
 echo on
 # Login the Admin user
-login "bla" "bla"
+login "Admin" "admin"
 createDefaultProject "Offline" "The Offline Project"
-syncRFSandVFS "../../cmsSync" "/system/modules/new.test.module1"
+syncRFSandVFS "../../cmsSync" "/system/modules/opencms.project.template"
 # Publish the project
 unlockCurrentProject
