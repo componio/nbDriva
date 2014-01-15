@@ -126,9 +126,10 @@
             </classpath>
         </java>
     </target>
+    <property name="rfsPathAbsolute" location="${cmsSync}/${modulepath}/${modulename}"/>
     <target name="run_syncFolderOverCMIS">
         <java classname="cmis.CmisSyncModule">
-            <arg line="-user ${username} -password ${password} -repoUrl ${cmsRepoURL} -repoId ${cmsRepoId} -rfs ${cmsSync}/${modulepath}/${modulename} -vfs ${modulepath}/${modulename}"/>
+            <arg line="-user ${username} -password ${password} -repoUrl ${cmsRepoURL} -repoId ${cmsRepoId} -rfs ${rfsPathAbsolute} -vfs ${modulepath}/${modulename}"/>
             <classpath path="build">
                 <dirset dir="${build.classes.dir}">
                     <include name="**/*.class"/>

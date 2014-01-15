@@ -83,7 +83,7 @@
     <target name="-post-compile">
         
         <!-- ####### CREATE PROJECT STRUCTURE ####### -->
-        <mkdir dir="${basedir}/ext_packages"/>
+        <mkdir dir="${basedir}/ext_package"/>
         <mkdir dir="${basedir}/initial_setup"/>
         <mkdir dir="${basedir}/content"/>
         <mkdir dir="${basedir}/config"/>
@@ -92,41 +92,41 @@
         <!-- ####### END OF CREATED PROJECT DIRECTORIES ####### -->
         
         <echo message="Copying new.test.module1 to cmsSyncSystem"/>
-        <copy todir="${cmsSync}/system/${acPackage}/classes">
+        <copy todir="${cmsSync}${acPackage}/classes">
             <fileset dir="build/web/WEB-INF/classes"/>
         </copy>
-        <copy todir="${cmsSync}/system/${acPackage}/elements">
+        <copy todir="${cmsSync}${acPackage}/elements">
             <fileset dir="./WEB/elements">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
-        <copy todir="${cmsSync}/system/${acPackage}/formatters">
+        <copy todir="${cmsSync}${acPackage}/formatters">
             <fileset dir="./WEB/formatters">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
-        <copy todir="${cmsSync}/system/${acPackage}/lib">
+        <copy todir="${cmsSync}${acPackage}/lib">
             <fileset dir="./WEB/WEB-INF/lib">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
-        <copy todir="${cmsSync}/system/${acPackage}/resources">
+        <copy todir="${cmsSync}${acPackage}/resources">
             <fileset dir="./WEB/resources">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
-        <copy todir="${cmsSync}/system/${acPackage}/templates">
+        <copy todir="${cmsSync}${acPackage}/templates">
             <fileset dir="./WEB/templates">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
-        <copy todir="${cmsSync}/system/${acPackage}/schemas">
+        <copy todir="${cmsSync}${acPackage}/schemas">
             <fileset dir="./WEB/schemas">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
 
-        <copy todir="${cmsSync}/system/${acPackage}/doc">
+        <copy todir="${cmsSync}${acPackage}/doc">
             <fileset dir="./WEB/doc">
                 <exclude name=".svn"/>
             </fileset>
@@ -134,9 +134,9 @@
     </target>
    
     <target name="-post-clean" >
-        <echo message="Cleaning cmsSyncSystem: ${cmsSync}/system/${acPackage}"/>
+        <echo message="Cleaning cmsSyncSystem: ${cmsSync}${acPackage}"/>
         <delete includeEmptyDirs="true" quiet="true">
-            <fileset dir="${cmsSync}/system/${acPackage}"/>
+            <fileset dir="${cmsSync}${acPackage}"/>
         </delete>
     </target>
     
@@ -252,12 +252,7 @@
     ############################################################################
     ############################################################################
     ############################################################################
-    -->
-    <property name="ivy.install.version" value="2.3.0" />
-    <property name="ivy.jar.dir" value="${basedir}/ivy" />
-    <property name="ivy.jar.file" value="${ivy.jar.dir}/ivy-${ivy.install.version}.jar" />
-    <property name="ivy.resolved.libs.dir" value="${basedir}/lib" />
-    
+    -->   
     <!-- downloading apache ivy dependency management tool -->
     <target name="ivy-download" unless="skip.download" depends="init">
         <mkdir dir="${ivy.jar.dir}"/>
