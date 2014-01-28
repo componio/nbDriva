@@ -4,8 +4,10 @@
 # Turn echo on
 echo on
 # Login the Admin user
-login "bla" "bla"
-createDefaultProject "Offline" "The Offline Project"
+login "Admin" "admin"
+setCurrentProject "Offline"
+#createDefaultProject "Offline" "The Offline Project"
 createNewModule "new.test.module1" "1.0"
 # Publish the project
 unlockCurrentProject
+publishProjectAndWait

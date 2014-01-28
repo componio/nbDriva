@@ -2,7 +2,9 @@
 echo on
 # Login the Admin user
 login "Admin" "admin"
-createDefaultProject "Offline" "The Offline Project"
+setCurrentProject "Offline"
+#createDefaultProject "Offline" "The Offline Project"
 exportModule "opencms.project.template"
 # Publish the project
 unlockCurrentProject
+publishProjectAndWait
