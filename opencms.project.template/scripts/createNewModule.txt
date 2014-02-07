@@ -10,4 +10,4 @@ setCurrentProject "Offline"
 createNewModule "new.test.module1" "1.0"
 # Publish the project
 unlockCurrentProject
-publishProjectAndWait
+publishResource "/system/modules/opencms.project.template" true

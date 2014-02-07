@@ -7,4 +7,4 @@ setCurrentProject "Offline"
 syncRFSandVFS "../../cmsSync" "/system/modules/opencms.project.template"
 # Publish the project
 unlockCurrentProject
-publishProjectAndWait
+publishResource "/system/modules/opencms.project.template" true

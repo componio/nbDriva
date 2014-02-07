@@ -20,6 +20,10 @@
                        match="createNewModule .*"
                        replace="createNewModule &quot;${modulename}&quot; &quot;${module.version}&quot;"
                        byline="true"/>
+        <replaceregexp file="${scriptDir}/createNewModule.txt"
+                       match="publishResource .*"
+                       replace="publishResource &quot;${acPackage}&quot; true"
+                       byline="true"/>
     </target>
     
     <target name="prepare_exportModule">
@@ -30,6 +34,10 @@
         <replaceregexp file="${scriptDir}/exportModule.txt"
                        match="exportModule .*"
                        replace="exportModule &quot;${modulename}&quot;"
+                       byline="true"/>
+        <replaceregexp file="${scriptDir}/exportModule.txt"
+                       match="publishResource .*"
+                       replace="publishResource &quot;${acPackage}&quot; true"
                        byline="true"/>
     </target>
     
@@ -62,6 +70,10 @@
                        match="importModule .*"
                        replace="importModule &quot;${importFileWithSlash}&quot;"
                        byline="true"/>
+        <replaceregexp file="${scriptDir}/importModule.txt"
+                       match="publishResource .*"
+                       replace="publishResource &quot;${acPackage}&quot; true"
+                       byline="true"/>
     </target>
     
     <target name="prepare_syncFolder">
@@ -72,6 +84,10 @@
         <replaceregexp file="${scriptDir}/syncFolders.txt"
                        match="syncRFSandVFS .*"
                        replace="syncRFSandVFS &quot;${cmsSync}&quot; &quot;${modulepath}/${modulename}&quot;"
+                       byline="true"/>
+        <replaceregexp file="${scriptDir}/syncFolders.txt"
+                       match="publishResource .*"
+                       replace="publishResource &quot;${acPackage}&quot; true"
                        byline="true"/>
     </target>
     
