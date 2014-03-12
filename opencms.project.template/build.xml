@@ -125,12 +125,23 @@
                 <exclude name=".svn"/>
             </fileset>
         </copy>
-
         <copy todir="${cmsSync}${acPackage}/doc">
             <fileset dir="./WEB/doc">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
+        <copy todir="${cmsSync}${acPackage}/functions">
+            <fileset dir="./WEB/functions">
+                <exclude name=".svn"/>
+            </fileset>
+        </copy>
+        <!--
+        <copy tofile="${cmsSync}${acPackage}/.config">
+            <fileset dir="./WEB">
+                <include name="config"/>
+            </fileset>
+        </copy>
+        -->
     </target>
    
     <target name="-post-clean" >
