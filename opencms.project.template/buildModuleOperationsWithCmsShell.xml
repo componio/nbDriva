@@ -93,7 +93,7 @@
     
     <target name="run_createNewModule" depends="prepare_createNewModule">
         <java classname="main.CmsShellMain">
-            <arg line="-webInf ${cmsWebInfDir} -script ${scriptDir}/createNewModule.txt -additional additionalcommands.ModuleCommands"/>
+            <arg line="-webInf &quot;${cmsWebInfDir}&quot; -script ${scriptDir}/createNewModule.txt -additional additionalcommands.ModuleCommands"/>
             <classpath path="build">
                 <dirset dir="${build.classes.dir}">
                     <include name="**/*.class"/>
@@ -106,7 +106,7 @@
     
     <target name="run_exportModule" depends="prepare_exportModule">
         <java classname="main.CmsShellMain">
-            <arg line="-webInf ${cmsWebInfDir} -script ${scriptDir}/exportModule.txt -additional additionalcommands.ModuleCommands"/>
+            <arg line="-webInf &quot;${cmsWebInfDir}&quot; -script ${scriptDir}/exportModule.txt -additional additionalcommands.ModuleCommands"/>
             <classpath path="build">
                 <dirset dir="${build.classes.dir}">
                     <include name="**/*.class"/>
@@ -119,7 +119,7 @@
     
     <target name="run_importModule" depends="prepare_importModule">
         <java classname="main.CmsShellMain">
-            <arg line="-webInf ${cmsWebInfDir} -script ${scriptDir}/importModule.txt -additional additionalcommands.ModuleCommands"/>
+            <arg line="-webInf &quot;${cmsWebInfDir}&quot; -script ${scriptDir}/importModule.txt -additional additionalcommands.ModuleCommands"/>
             <classpath path="build">
                 <dirset dir="${build.classes.dir}">
                     <include name="**/*.class"/>
@@ -132,7 +132,7 @@
     
     <target name="run_syncFolder" depends="prepare_syncFolder">
         <java classname="main.CmsShellMain">
-            <arg line="-webInf ${cmsWebInfDir} -script ${scriptDir}/syncFolders.txt -additional additionalcommands.ModuleCommands"/>
+            <arg line="-webInf &quot;${cmsWebInfDir}&quot; -script ${scriptDir}/syncFolders.txt -additional additionalcommands.ModuleCommands"/>
             <classpath path="build">
                 <dirset dir="${build.classes.dir}">
                     <include name="**/*.class"/>
