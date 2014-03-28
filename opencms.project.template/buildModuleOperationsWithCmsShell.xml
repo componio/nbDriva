@@ -21,8 +21,8 @@
                        replace="createNewModule &quot;${modulename}&quot; &quot;${module.version}&quot;"
                        byline="true"/>
         <replaceregexp file="${scriptDir}/createNewModule.txt"
-                       match="publishResource .*"
-                       replace="publishResource &quot;${acPackage}&quot; true"
+                       match="publishResource.*"
+                       replace="publishResources &quot;${includedSyncFolders}&quot; true"
                        byline="true"/>
     </target>
     
@@ -36,25 +36,53 @@
                        replace="exportModule &quot;${modulename}&quot;"
                        byline="true"/>
         <replaceregexp file="${scriptDir}/exportModule.txt"
-                       match="publishResource .*"
-                       replace="publishResource &quot;${acPackage}&quot; true"
+                       match="publishResource.*"
+                       replace="publishResources &quot;${includedSyncFolders}&quot; true"
                        byline="true"/>
     </target>
     
    
     
     <target name="prepare_importModule">
-        <path id="importZip">
-            <fileset dir="${packagePath}">
-                <include name="${modulename}_${module.version}*.zip"/>
-            </fileset>
-        </path>
-        <property name="importFileWithBackSlash" value="${toString:importZip}"/>
-        <!-- replaces the backslashes of the path(under Windows) with slashes, because
-             backslahes of the path aren't visible in the cms scripts  
-        -->
-        <loadresource property="importFileWithSlash">
-            <propertyresource name="importFileWithBackSlash"/>
+        <replaceregexp file="${scriptDir}/importModule.txt"
+                       match="login .*"
+                       replace="login &quot;${username}&quot; &quot;${password}&quot;"
+                       byline="true"/>
+        <replaceregexp file="${scriptDir}/importModule.txt"
+                       match="importModule.*"
+                       replace="importModules &quot;${importModules}&quot;"
+                       byline="true"/>
+        <replaceregexp file="${scriptDir}/importModule.txt"
+                       match="publishResource.*"
+                       replace="publishResources &quot;${includedSyncFolders}&quot; true"
+                       byline="true"/>
+    </target>
+    
+    <!-- ############### SYNCHRONIZATION OF OPENCMS MODULE ##################-->
+    <target name="check_sync_with_exclusions">
+        <condition property="sync.with.exclusions">
+            <equals arg1="${useExclusionFile}" arg2="true"/>
+        </condition>
+    </target>
+    
+    <target name="prepare_syncFolder_without_exclusion" unless="sync.with.exclusions">
+        <replaceregexp file="${scriptDir}/syncFolders.txt"
+                       match="login .*"
+                       replace="login &quot;${username}&quot; &quot;${password}&quot;"
+                       byline="true"/>
+        <replaceregexp file="${scriptDir}/syncFolders.txt"
+                       match="syncRFSandVFS.*"
+                       replace="syncRFSandVFSMultipleFolders &quot;${cmsSync}&quot; &quot;${includedSyncFolders}&quot;"
+                       byline="true"/>
+        <replaceregexp file="${scriptDir}/syncFolders.txt"
+                       match="publishResource.*"
+                       replace="publishResources &quot;${includedSyncFolders}&quot; true"
+                       byline="true"/>
+    </target>
+    
+    <target name="prepare_syncFolder_with_exclusion" if="sync.with.exclusions" depends="check_sync_with_exclusions">
+        <loadresource property="exclusionFileWithSlash">
+            <propertyresource name="exclusionFile"/>
             <filterchain>
                 <tokenfilter>
                     <filetokenizer/>
@@ -62,32 +90,17 @@
                 </tokenfilter>
             </filterchain>
         </loadresource>
-        <replaceregexp file="${scriptDir}/importModule.txt"
-                       match="login .*"
-                       replace="login &quot;${username}&quot; &quot;${password}&quot;"
-                       byline="true"/>
-        <replaceregexp file="${scriptDir}/importModule.txt"
-                       match="importModule .*"
-                       replace="importModule &quot;${importFileWithSlash}&quot;"
-                       byline="true"/>
-        <replaceregexp file="${scriptDir}/importModule.txt"
-                       match="publishResource .*"
-                       replace="publishResource &quot;${acPackage}&quot; true"
-                       byline="true"/>
-    </target>
-    
-    <target name="prepare_syncFolder">
         <replaceregexp file="${scriptDir}/syncFolders.txt"
                        match="login .*"
                        replace="login &quot;${username}&quot; &quot;${password}&quot;"
                        byline="true"/>
         <replaceregexp file="${scriptDir}/syncFolders.txt"
-                       match="syncRFSandVFS .*"
-                       replace="syncRFSandVFS &quot;${cmsSync}&quot; &quot;${modulepath}/${modulename}&quot;"
+                       match="syncRFSandVFS.* .*"
+                       replace="syncRFSandVFSExclusionFile &quot;${cmsSync}&quot; &quot;${modulepath}/${modulename}&quot; &quot;${exclusionFileWithSlash}&quot;"
                        byline="true"/>
         <replaceregexp file="${scriptDir}/syncFolders.txt"
-                       match="publishResource .*"
-                       replace="publishResource &quot;${acPackage}&quot; true"
+                       match="publishResource.*"
+                       replace="publishResources &quot;${includedSyncFolders}&quot; true"
                        byline="true"/>
     </target>
     
@@ -130,7 +143,7 @@
         </java>
     </target>
     
-    <target name="run_syncFolder" depends="prepare_syncFolder">
+    <target name="run_syncFolder" depends="check_sync_with_exclusions,prepare_syncFolder_without_exclusion,prepare_syncFolder_with_exclusion">
         <java classname="main.CmsShellMain">
             <arg line="-webInf &quot;${cmsWebInfDir}&quot; -script ${scriptDir}/syncFolders.txt -additional additionalcommands.ModuleCommands"/>
             <classpath path="build">

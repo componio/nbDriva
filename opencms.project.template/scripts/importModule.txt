@@ -4,7 +4,7 @@ echo on
 login Admin admin
 setCurrentProject "Offline"
 #createDefaultProject "Offline" "The Offline Project"
-importModule "C:/Users/Thomas/Netbeansprojects/new.test.module1/package/new.test.module1.zip"
+importModules
 # Publish the project
 unlockCurrentProject
 publishResource "/system/modules/opencms.project.template" true

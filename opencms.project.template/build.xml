@@ -8,7 +8,7 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="opencms.project.template" default="default" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
-   <description>Builds, tests, and runs the project new.test.module1.</description>
+   <description>Builds, tests, and runs the project renameMe</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
@@ -69,7 +69,34 @@
 
     -->
     
-    <property file="./module.properties"/>
+    <property file="${basedir}/nbDriva.properties"/>
+    <!-- the individual properties will be set before the default properties
+         (cause properties can't be overriden per default in Ant)
+     -->
+    <property file="${nbDriva.individual.config}"/>
+    <property file="${nbDriva.default.config}"/>
+    
+    <!-- here you can find an ugly JavaScript workaround with the possibility to
+         override properties. But it's not recommended.
+    -->
+    <!--
+    <loadfile property="individualProperties" srcfile="${nbDriva.individual.config}" />
+    <script language="javascript">
+		<![CDATA[
+		var lines = project.getProperty('individualProperties').split('\n');
+		for(var i=0;i<lines.length;++i) {
+			var line = lines[i];
+			var startWith = /^#|#\s*|\s*#/
+			var regex = /(.+)=(.+)/;
+			if(line.match(startWith) || !line.match(regex))
+				continue;
+			regex.exec(line);
+			project.setProperty(RegExp.$1.trim(), RegExp.$2.trim());
+		}
+		]]>
+    </script>
+    -->
+    
     <loadresource property="cmsSyncWithSlash">
         <propertyresource name="cmsSync"/>
         <filterchain>
@@ -169,23 +196,15 @@
             <property name="cmsSync" value="${cmsSyncWithSlash}"/>
         </ant>
     </target>
-    
-    <target name="move_module_to_packagedir" depends="shell_export_module">
-        <path id="importZip">
-            <fileset dir="${moduleDir}">
+     
+    <target name="move_module_to_packagedir">
+         <move todir="${packagePath}" failonerror="true">
+             <fileset dir="${moduleDir}">
                 <include name="${modulename}*.zip"/>
             </fileset>
-        </path>
-        <property name="importFileWithBackSlash" value="${toString:importZip}"/>
-        <condition property="zip.file.not.found">
-            <equals arg1="${importFileWithBackSlash}" arg2=""/>
-        </condition>
+         </move>
     </target>
-    
-    <target name="move_module_check_property" unless="zip.file.not.found" depends="move_module_to_packagedir">
-        <move file="${importFileWithBackSlash}" tofile="${packagePath}/${modulename}_${module.version}.zip" failonerror="true"/>
-    </target>
-    
+     
     <!-- ######################## IMPORT OF OPENCMS MODULE ##################-->
     <target name="shell_import_module">
         <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_importModule">
@@ -217,12 +236,10 @@
     
     <!-- ################################################################### -->
         
-    
-    
     <target name="build_new_module" depends="clean,dist,shell_create_new_module,shell_sync_module"/>
     <target name="build_import_module" depends="clean,dist,shell_import_module,shell_sync_module"/>
     <target name="build_sync_folder_standalone" depends="clean,dist,shell_sync_module"/>
-    <target name="build_cms_reverse_sync" depends="clean,dist,shell_export_module,move_module_check_property"/>
+    <target name="build_cms_reverse_sync" depends="clean,dist,shell_export_module,move_module_to_packagedir"/>
   
      <!--########################################################################
          ################# End of OpenCms Operations Section ####################
