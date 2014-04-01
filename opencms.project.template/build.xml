@@ -161,14 +161,12 @@
             <fileset dir="./WEB/functions">
                 <exclude name=".svn"/>
             </fileset>
-        </copy>
-        <!--
+        </copy>        
         <copy tofile="${cmsSync}${acPackage}/.config">
             <fileset dir="./WEB">
                 <include name="config"/>
             </fileset>
         </copy>
-        -->
     </target>
    
     <target name="-post-clean" >
