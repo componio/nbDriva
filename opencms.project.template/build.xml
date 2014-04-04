@@ -293,6 +293,7 @@
     </target>
     <!-- resolving dependencies using ivy -->
     <target name="ivy-resolve-dependencies" depends="ivy-install">
+        <ivy:settings file="${basedir}/ivysettings.xml"/>
         <ivy:retrieve pattern="${ivy.resolved.libs.dir}/[conf]/[artifact]-[type]-[revision].[ext]"/>
     </target>
     <!-- ########################## END OF IVY SECTION ##################### -->
