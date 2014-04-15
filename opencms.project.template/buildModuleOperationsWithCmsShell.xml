@@ -32,8 +32,8 @@
                        replace="login &quot;${username}&quot; &quot;${password}&quot;"
                        byline="true"/>
         <replaceregexp file="${scriptDir}/exportModule.txt"
-                       match="exportModule .*"
-                       replace="exportModule &quot;${modulename}&quot;"
+                       match="exportModule.*"
+                       replace="exportModuleWithVersion &quot;${modulename}&quot; &quot;${module.version}&quot;"
                        byline="true"/>
         <replaceregexp file="${scriptDir}/exportModule.txt"
                        match="publishResource.*"

@@ -65,17 +65,10 @@ public final class ImportModuleAction extends AbstractAction implements LookupLi
     private Lookup context;
     private Project project;
     private Lookup.Result result;
-    private File checkFile;
     private FileWriter writer;
 
     ImportModuleAction() {
         this(Utilities.actionsGlobalContext());
-        checkFile = new File("C:/Users/Thomas/Desktop/test.txt");
-        try {
-            writer = new FileWriter(checkFile);
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
-        }
     }
 
     ImportModuleAction(Lookup context) {
@@ -86,12 +79,6 @@ public final class ImportModuleAction extends AbstractAction implements LookupLi
         resultChanged(new LookupEvent(result));
         putValue(DynamicMenuContent.HIDE_WHEN_DISABLED, true);
         putValue(NAME, Bundle.CTL_ImportModuleAction());
-        checkFile = new File("C:/Users/Thomas/Desktop/test.txt");
-        try {
-            writer = new FileWriter(checkFile);
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
-        }
     }
 
     @Override
