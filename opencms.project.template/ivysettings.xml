@@ -8,7 +8,7 @@
     <!-- Customized stuff -->
     <settings defaultResolver="public" />
     <resolvers>
-        <ibiblio name="opencms.shell.extension" root="https://raw.github.com/tpinky/shellDriva/master/lib-repo/" m2compatible="true"/>
+        <ibiblio name="opencms.shell.extension" root="https://raw.githubusercontent.com/tpinky/shellDriva/master/lib-repo/" m2compatible="true"/>
     </resolvers>
     <modules>
       <module organisation="net.componio" resolver="opencms.shell.extension"/>
