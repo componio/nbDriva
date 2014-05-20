@@ -9,9 +9,12 @@
     <settings defaultResolver="public" />
     <resolvers>
         <ibiblio name="opencms.shell.extension" root="https://raw.githubusercontent.com/tpinky/shellDriva/master/lib-repo/" m2compatible="true"/>
+<<<<<<< HEAD
         <ibiblio name="cryptix-jce-provider" root="https://raw.githubusercontent.com/tpinky/shellDriva/master/lib-repo/" m2compatible="true"/>
         <ibiblio name="org.restlet" root="http://maven.restlet.org/" m2compatible="true"/>
         <ibiblio name="alfresco-jlan-embed" root="https://maven.alfresco.com/nexus/content/repositories/releases/" m2compatible="true"/>
+=======
+>>>>>>> 77c144e32f64442a98949d6676ced2bb43c17365
     </resolvers>
     <modules>
       <module organisation="net.componio" resolver="opencms.shell.extension"/>
