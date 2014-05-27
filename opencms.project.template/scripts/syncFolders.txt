@@ -4,6 +4,6 @@ echo on
 login "Admin" "admin"
 setCurrentProject "Offline"
 #createDefaultProject "Offline" "The Offline Project"
-syncRFSandVFS "../../cmsSync" "/system/modules/opencms.project.template"
+syncRFSandVFSExclusionFile "../../cmsSync" "/system/modules/opencms.project.template/" "C:/Users/Thomas/Documents/GitHub/nbDriva/opencms.project.template/exclusion/exclusion.patterns.txt"
 # Publish the project
 unlockCurrentProject

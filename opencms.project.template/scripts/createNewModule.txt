@@ -7,7 +7,7 @@ echo on
 login "Admin" "admin"
 setCurrentProject "Offline"
 #createDefaultProject "Offline" "The Offline Project"
-createNewModule "new.test.module1" "1.0"
+createNewModule "opencms.project.template" "1.0"
 # Publish the project
 unlockCurrentProject
-publishResource "/system/modules/opencms.project.template" true
+publishResources "/system/modules/opencms.project.template/" true

@@ -12,11 +12,13 @@
         <ibiblio name="cryptix-jce-provider" root="https://raw.githubusercontent.com/tpinky/shellDriva/master/lib-repo/" m2compatible="true"/>
         <ibiblio name="org.restlet" root="http://maven.restlet.org/" m2compatible="true"/>
         <ibiblio name="alfresco-jlan-embed" root="https://maven.alfresco.com/nexus/content/repositories/releases/" m2compatible="true"/>
+        <ibiblio name="spring-webscripts" root="https://maven.alfresco.com/nexus/content/repositories/releases/" m2compatible="true"/>
     </resolvers>
     <modules>
       <module organisation="net.componio" resolver="opencms.shell.extension"/>
       <module organisation="cryptix-jce" resolver="cryptix-jce-provider"/>
       <module organisation="org.restlet.jee" resolver="org.restlet"/>
       <module organisation="org.alfresco" resolver="alfresco-jlan-embed"/>
+      <module organisation="org.springframework.extensions.surf" resolver="spring-webscripts"/>
     </modules>
 </ivysettings>
