@@ -2,12 +2,14 @@
 <ivy-module version="2.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd" xmlns:m="http://ant.apache.org/ivy/maven">
     <info organisation="componio" module="libraries"/>
     <dependencies>        
-        <dependency org="net.componio" name="opencms.shell.extension" rev="0.9.1" transitive="false"/>
+        <dependency org="net.componio" name="opencms.shell.extension" rev="0.9.2" transitive="false"/>
         <dependency org="cryptix-jce" name="cryptix-jce-provider" rev="20050328" force="true" transitive="false"/>
         
         <dependency org="org.alfresco" name="alfresco-jlan-embed" rev="4.2.f" force="true" transitive="true"/>
         <dependency org="org.springframework.extensions.surf" name="spring-surf-core" rev="1.2.1-M1"/> 
-        <dependency org="org.springframework.extensions.surf" name="spring-surf-core-configservice" rev="1.2.1-M1"/> 
+        <dependency org="org.springframework.extensions.surf" name="spring-surf-core-configservice" rev="1.2.1-M1"/>
+        <dependency org="org.restlet.jee" name="org.restlet" rev="2.1.1"/>
+        <dependency org="org.restlet.jee" name="org.restlet.ext.servlet" rev="2.1.1"/>
         <!--OpenCms 9 dependencies -->
         
         <dependency org="org.opencms" name="opencms-core" rev="9.0.1"/>

@@ -18,7 +18,7 @@
                        byline="true"/>
         <replaceregexp file="${scriptDir}/createNewModule.txt"
                        match="createNewModule .*"
-                       replace="createNewModule &quot;${modulename}&quot; &quot;${module.version}&quot;"
+                       replace="createNewModule &quot;${modulename}&quot; &quot;${module.version}&quot; &quot;${module.action.class}&quot;"
                        byline="true"/>
         <replaceregexp file="${scriptDir}/createNewModule.txt"
                        match="publishResource.*"
