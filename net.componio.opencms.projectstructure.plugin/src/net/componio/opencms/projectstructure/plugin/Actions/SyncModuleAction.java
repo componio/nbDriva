@@ -50,8 +50,7 @@ import org.openide.util.Utilities;
 @ActionRegistration(
         displayName = "#CTL_SyncModuleAction")
 @ActionReferences({
-    
-    @ActionReference(path = "Projects/Actions",position = 20, separatorAfter = 25)
+    @ActionReference(path = "Projects/Actions",position = 20)
 })
 @Messages("CTL_SyncModuleAction=Sync Module")
 public final class SyncModuleAction extends AbstractAction implements LookupListener, ContextAwareAction {

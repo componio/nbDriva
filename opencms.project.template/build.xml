@@ -169,7 +169,7 @@
         </copy> 
     </target>
    
-    <target name="build-classpath-jar">
+    <target name="build-classpath-jar" depends="clean,dist,ivy-resolve-dependencies">
          <path id="build-classpath">
            <fileset dir="${ivy.resolved.libs.dir}">
               <include name="**/*.jar"/>
@@ -190,8 +190,6 @@
         <delete includeEmptyDirs="true" quiet="true">
             <fileset dir="${cmsSync}${acPackage}"/>
         </delete>
-        <delete dir="${ivy.resolved.libs.dir}/default"/>
-        <mkdir dir="${ivy.resolved.libs.dir}/default"/> 
     </target>
     
     <!--########################################################################
@@ -251,10 +249,10 @@
     </target>
     
     <!-- ################################################################### -->
-    <target name="build_new_module" depends="clean,dist,build-classpath-jar,shell_create_new_module,shell_sync_module"/>
-    <target name="build_import_module" depends="clean,dist,build-classpath-jar,shell_import_module,shell_sync_module"/>
-    <target name="build_sync_folder_standalone" depends="clean,dist,build-classpath-jar,shell_sync_module"/>
-    <target name="build_cms_reverse_sync" depends="clean,dist,build-classpath-jar,shell_export_module,move_module_to_packagedir"/>
+    <target name="build_new_module" depends="clean,dist,shell_create_new_module,shell_sync_module"/>
+    <target name="build_import_module" depends="clean,dist,shell_import_module,shell_sync_module"/>
+    <target name="build_sync_folder_standalone" depends="clean,dist,shell_sync_module"/>
+    <target name="build_cms_reverse_sync" depends="clean,dist,shell_export_module,move_module_to_packagedir"/>
   
      <!--########################################################################
          ################# End of OpenCms Operations Section ####################
@@ -314,9 +312,5 @@
         <ivy:settings file="${basedir}/ivysettings.xml"/>
         <ivy:retrieve pattern="${ivy.resolved.libs.dir}/[conf]/[artifact]-[type]-[revision].[ext]"/>
     </target>
-    
-    <!-- ########################## END OF IVY SECTION ##################### -->
-    <target name="-pre-compile" depends="ivy-resolve-dependencies"/>
-    <target name="-pre-compile-single" depends="ivy-resolve-dependencies"/>
     <!-- ########################## END OF IVY SECTION ##################### -->
 </project>
