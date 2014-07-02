@@ -169,7 +169,7 @@
         </copy> 
     </target>
    
-    <target name="build-classpath-jar" depends="clean,dist,ivy-resolve-dependencies">
+    <target name="build-classpath-jar" depends="ivy-resolve-dependencies">
          <path id="build-classpath">
            <fileset dir="${ivy.resolved.libs.dir}">
               <include name="**/*.jar"/>
@@ -178,6 +178,7 @@
         <manifestclasspath property="lib.list" jarfile="${ivy.resolved.libs.dir}/${classpath-compile.jar}">
            <classpath refid="build-classpath" />
         </manifestclasspath>
+        
         <jar jarfile="${ivy.resolved.libs.dir}/${classpath-compile.jar}">          
            <manifest>        
               <attribute name="Class-Path" value=". ${lib.list}"/>
@@ -308,6 +309,8 @@
     </target>
     <!-- resolving dependencies using ivy -->
     <target name="ivy-resolve-dependencies" depends="ivy-install">
+        <delete dir="${ivy.resolved.libs.dir}/default"/>
+        <mkdir dir="${ivy.resolved.libs.dir}/default"/>
         <copy file="${ivy.jar.dir}/ivy_opencms_${opencms.version}.xml" tofile="${basedir}/ivy.xml" overwrite="true"/> 
         <ivy:settings file="${basedir}/ivysettings.xml"/>
         <ivy:retrieve pattern="${ivy.resolved.libs.dir}/[conf]/[artifact]-[type]-[revision].[ext]"/>
