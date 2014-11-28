@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd" xmlns:m="http://ant.apache.org/ivy/maven">
+    <info organisation="componio" module="libraries"/>
+    <dependencies>
+         <dependency org="net.componio" name="opencms.shell.extension" rev="0.9.2" transitive="false"/>
+        <dependency org="cryptix-jce" name="cryptix-jce-provider" rev="20050328" force="true" transitive="false"/>
+        
+        <dependency org="org.alfresco" name="alfresco-jlan-embed" rev="4.2.f" force="true" transitive="true"/>
+        <dependency org="org.springframework.extensions.surf" name="spring-surf-core" rev="1.2.1-M1"/> 
+        <dependency org="org.springframework.extensions.surf" name="spring-surf-core-configservice" rev="1.2.1-M1"/>
+        <dependency org="org.restlet.jee" name="org.restlet" rev="2.1.1"/>
+        <dependency org="org.restlet.jee" name="org.restlet.ext.servlet" rev="2.1.1"/>
+        <!--OpenCms 9 dependencies -->
+        
+        <dependency org="org.opencms" name="opencms-core" rev="9.5.0"/>
+        <dependency org="org.opencms" name="opencms-setup" rev="9.5.0"/>
+        <dependency org="dom4j" name="dom4j" rev="1.6.1">
+            <exclude org="jdom" name="jdom"/>
+            <exclude org="xml-apis" name="xml-apis"/>
+            <exclude org="xerces" name="xercesImpl"/>
+            <exclude org="xom" name="xom"/>
+        </dependency>
+        <dependency org="org.safehaus.jug" name="jug" rev="2.0.0" force="true">
+            <artifact name="jug" type="jar" ext="jar" conf="" m:classifier="lgpl"/>
+        </dependency>
+        <dependency org="quartz" name="quartz" rev="1.5.2">
+        </dependency>
+        <dependency org="mysql" name="mysql-connector-java" rev="5.1.26" transitive="true"/>
+        <dependency org="junit" name="junit" rev="4.11" transitive="true"/>
+        <dependency org="oro" name="oro" rev="2.0.8"/>
+        <dependency org="com.cybozu.labs" name="langdetect" rev="1.1-20120112"/>
+        <dependency org="log4j" name="log4j" rev="1.2.15"/>
+        <dependency org="commons-collections" name="commons-collections" rev="3.2.1"/>
+        <dependency org="commons-codec" name="commons-codec" rev="1.6"/>
+        <dependency org="commons-pool" name="commons-pool" rev="1.5.5"/>
+        <dependency org="commons-lang" name="commons-lang" rev="2.6"/>
+        <dependency org="commons-fileupload" name="commons-fileupload" rev="1.2.2"/>
+        <dependency org="commons-io" name="commons-io" rev="1.2"/>
+        <dependency org="org.apache.commons" name="commons-email" rev="1.2"/>
+        <dependency org="commons-beanutils" name="commons-beanutils" rev="1.8.3"/>
+        <dependency org="com.google.guava" name="guava" rev="15.0"/>
+        <dependency org="org.htmlparser" name="htmlparser" rev="1.6"/>
+        <dependency org="org.apache.lucene" name="lucene-core" rev="4.3.0"/>
+        <dependency org="org.apache.lucene" name="lucene-analyzers-common" rev="4.3.0"/>
+        <dependency org="org.apache.lucene" name="lucene-highlighter" rev="4.3.0"/>
+        <dependency org="org.apache.lucene" name="lucene-grouping" rev="4.3.0"/>
+        <dependency org="org.apache.lucene" name="lucene-memory" rev="4.3.0"/>
+        <dependency org="org.apache.lucene" name="lucene-misc" rev="4.3.0"/>
+        <dependency org="org.apache.lucene" name="lucene-queries" rev="4.3.0"/>
+        <dependency org="org.apache.lucene" name="lucene-queryparser" rev="4.3.0"/>
+        <dependency org="org.apache.lucene" name="lucene-spatial" rev="4.3.0"/>
+        <dependency org="org.apache.lucene" name="lucene-suggest" rev="4.3.0"/>
+        <dependency org="javax.servlet" name="jsp-api" rev="2.0"/>
+        <dependency org="javax.servlet" name="servlet-api" rev="2.4"/>
+        <dependency org="com.google.gwt" name="gwt-servlet" rev="2.6.0"/>
+        <dependency org="com.lambdaworks" name="scrypt" rev="1.4.0"/>
+        <dependency org="org.apache.chemistry.opencmis" name="chemistry-opencmis-commons-api" rev="0.7.0"/>
+        <dependency org="org.apache.chemistry.opencmis" name="chemistry-opencmis-commons-impl" rev="0.7.0"/>
+        <dependency org="org.apache.chemistry.opencmis" name="chemistry-opencmis-server-bindings" rev="0.7.0"/>
+        <dependency org="org.apache.chemistry.opencmis" name="chemistry-opencmis-server-support" rev="0.7.0"/>
+        <dependency org="org.apache.chemistry.opencmis" name="chemistry-opencmis-client-api" rev="0.7.0" transitive="true"/>
+        <dependency org="org.apache.chemistry.opencmis" name="chemistry-opencmis-client-impl" rev="0.7.0" transitive="true"/>
+        <dependency org="org.apache.chemistry.opencmis" name="chemistry-opencmis-client-bindings" rev="0.7.0" transitive="true"/>
+        <dependency org="org.apache.zookeeper" name="zookeeper" rev="3.4.5">
+            <exclude org="*"/>
+        </dependency>
+        <dependency org="com.alkacon" name="alkacon-simapi" rev="1.0.0"/>
+        <dependency org="org.opencms" name="org.opencms.workplace.tools.accounts" rev="9.0.1"/>   
+       
+        <dependency org="com.spatial4j" name="spatial4j" rev="0.3">
+            <exclude org="*"/>
+        </dependency>
+        <dependency org="org.noggit" name="noggit" rev="0.5">
+            <exclude org="*"/>
+        </dependency>
+        
+        <dependency org="org.slf4j" name="slf4j-api" rev="1.7.1">
+            <exclude org="*"/>
+        </dependency>  
+        <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.1">
+            <exclude org="*"/>
+        </dependency>
+        <dependency org="org.apache.solr" name="solr-core" rev="4.3.0">
+            <exclude org="org.eclipse.jetty"/>
+            <exclude org="xerces"/>
+            <exclude org="log4j"/>
+            <exclude org="org.apache.tika"/>
+            <exclude org="com.google.guava"/>
+            <exclude org="javax.mail"/>
+            <exclude org="javax.activation"/>
+            <exclude org="xerces"/>
+            <exclude org="junit"/>
+            <exclude org="xerces"/>
+            <exclude org="org.apache.httpcomponents"/>
+            <exclude org="commons-digester"/>
+            <exclude org="commons-fileupload"/>
+            <exclude org="commons-codec"/>
+        </dependency>
+        <dependency org="org.apache.solr" name="solr-solrj" rev="4.3.0">
+            <exclude org="org.eclipse.jetty"/>
+            <exclude org="xerces"/>
+            <exclude org="log4j"/>
+            <exclude org="org.apache.tika"/>
+            <exclude org="com.google.guava"/>
+            <exclude org="javax.mail"/>
+            <exclude org="javax.activation"/>
+            <exclude org="xerces"/>
+            <exclude org="junit"/>
+            <exclude org="xerces"/>
+            <exclude org="org.apache.httpcomponents"/>
+            <exclude org="commons-digester"/>
+            <exclude org="commons-fileupload"/>
+            <exclude org="commons-codec"/>
+        </dependency>
+        
+        <dependency org="org.apache.httpcomponents" name="httpcore" rev="4.3.1">
+            <exclude org="commons-logging"/>
+            <exclude org="junit"/>
+            <exclude org="org.mockito"/>
+        </dependency>
+        <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.3.2">
+            <exclude org="commons-logging"/>
+            <exclude org="commons-codec"/>
+            <exclude org="junit"/>
+            <exclude org="org.mockito"/>
+        </dependency>
+                
+        <exclude org="javax.validation"/>
+        <exclude org="org.json"/>
+        <exclude org="org.hibernate"/>
+        <exclude org="org.mybartis"/>
+        <exclude org="org.quartz-scheduler"/>
+        <exclude org="com.hazelcast"/>
+        <exclude org="org.alfresco" module="alfresco-core"/>
+        <exclude org="org.carrot2"/>
+        <exclude org="jakarta-regexp"/>
+        <exclude org="org.eclipse.jetty"/>
+        <exclude org="com.sun.jdmk"/>
+        <exclude org="com.sun.jmx"/>
+        <exclude org="javax.jms"/>
+        <exclude org="javax.ejb"/>
+        <exclude org="javax.transaction"/>
+        <exclude org="javax.inject"/>
+        <exclude org="jta"/>
+        <exclude org="com.ibm.icu"/>
+        <exclude org="pull-parser"/>
+        <exclude org="xalan"/>
+        <exclude org="xerces" module="xmlParserAPIs"/>
+        <exclude org="msv"/>
+        <exclude org="jaxme" module="jaxme-api"/>
+        <exclude org="xpp3"/>                                     
+    </dependencies>
+</ivy-module>
