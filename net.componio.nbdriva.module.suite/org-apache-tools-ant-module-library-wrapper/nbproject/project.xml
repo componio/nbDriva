@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.apisupport.project</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/nb-module-project/3">
+            <code-name-base>org.apache.tools.ant.module.library.wrapper</code-name-base>
+            <suite-component/>
+            <module-dependencies/>
+            <public-packages>
+                <package>org.apache.tools.ant.module</package>
+                <package>org.apache.tools.ant.module.api</package>
+                <package>org.apache.tools.ant.module.api.support</package>
+                <package>org.apache.tools.ant.module.bridge</package>
+                <package>org.apache.tools.ant.module.loader</package>
+                <package>org.apache.tools.ant.module.nodes</package>
+                <package>org.apache.tools.ant.module.run</package>
+                <package>org.apache.tools.ant.module.spi</package>
+                <package>org.apache.tools.ant.module.wizards.shortcut</package>
+                <package>org.apache.tools.ant.module.xml</package>
+            </public-packages>
+            <class-path-extension>
+                <runtime-relative-path>ext/org-apache-tools-ant-module.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/org-apache-tools-ant-module.jar</binary-origin>
+            </class-path-extension>
+        </data>
+    </configuration>
+</project>
