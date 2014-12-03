@@ -1,42 +1,41 @@
 /*
-* This library is part of PiBo(tm)
-*
-* Copyright (c) componio GmbH, (http://www.componio.net)
-*
-* This library is free software; you can redistribute it and/or
-* modify it under the terms of the GNU Lesser General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This library is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-* Lesser General Public License for more details.
-*
-* For further information about componio GmbH, please see the
-* company website: http://www.componio.net
-*
-* You should have received a copy of the GNU Lesser General Public
-* License along with this library; if not, write to the Free Software
-* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-*/
+ * This library is part of PiBo(tm)
+ *
+ * Copyright (c) componio GmbH, (http://www.componio.net)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * For further information about componio GmbH, please see the
+ * company website: http://www.componio.net
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package net.componio.opencms.projectstructure.plugin;
 
 import java.awt.Component;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.swing.JComponent;
@@ -65,7 +64,6 @@ public class OpenCmsProjectStructureTemplateWizardIterator implements WizardDesc
     private int index;
     private WizardDescriptor.Panel[] panels;
     private WizardDescriptor wiz;
-  
 
     public OpenCmsProjectStructureTemplateWizardIterator() {
     }
@@ -89,7 +87,7 @@ public class OpenCmsProjectStructureTemplateWizardIterator implements WizardDesc
         Set<FileObject> resultSet = new LinkedHashSet<FileObject>();
         File dirF = FileUtil.normalizeFile((File) wiz.getProperty("projdir"));
         dirF.mkdirs();
-        
+
         FileObject template = Templates.getTemplate(wiz);
         FileObject dir = FileUtil.toFileObject(dirF);
         unZipFile(template.getInputStream(), dir);
@@ -183,7 +181,7 @@ public class OpenCmsProjectStructureTemplateWizardIterator implements WizardDesc
     public final void removeChangeListener(ChangeListener l) {
     }
 
-    private static void unZipFile(InputStream source, FileObject projectRoot) throws IOException {
+    private void unZipFile(InputStream source, FileObject projectRoot) throws IOException {
         try {
             ZipInputStream str = new ZipInputStream(source);
             ZipEntry entry;
@@ -195,6 +193,8 @@ public class OpenCmsProjectStructureTemplateWizardIterator implements WizardDesc
                     if ("nbproject/project.xml".equals(entry.getName())) {
                         // Special handling for setting name of Ant-based projects; customize as needed:
                         filterProjectXML(fo, str, projectRoot.getNameExt());
+                    } else if ("default.properties".equals(entry.getName())) {
+                        setDefaultProperties(str, fo);
                     } else {
                         writeFile(str, fo);
                     }
@@ -205,7 +205,84 @@ public class OpenCmsProjectStructureTemplateWizardIterator implements WizardDesc
         }
     }
 
-    private static void writeFile(ZipInputStream str, FileObject fo) throws IOException {
+    private static String readStreamToString(InputStream str) throws IOException {
+        StringBuilder builder = new StringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(str));
+        for (String line = br.readLine(); line != null; line = br.readLine()) {
+            builder.append(line.trim().replace(System.getProperty("line.separator"), "")).append("\n");
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Tries to get every line for a string (split by line separator of the
+     * given operating system
+     *
+     * @param str
+     * @return
+     */
+    private static String[] getEntriesFromString(String str) {
+        String[] entries = str.split("\n");
+        return entries;
+    }
+
+    /**
+     * splits an entry of a property file otherwise return null
+     *
+     * @param entry
+     * @return
+     */
+    private static String[] splitKeyAndValueFromPropertyEntry(String entry) {
+        String[] splitted = entry.split("=");
+        if (splitted.length == 2) {
+            splitted[0] = splitted[0].trim();
+            splitted[1] = splitted[1].trim().replace("\n", "");
+            return splitted;
+        } else {
+            return null;
+        }
+    }
+
+    private void setDefaultProperties(InputStream str, FileObject fo) throws IOException {
+        String content = readStreamToString(str);
+        String[] entries = getEntriesFromString(content);
+        String propk;
+        StringBuilder builder = new StringBuilder();
+        for (String entry : entries) {
+            String[] splitted = splitKeyAndValueFromPropertyEntry(entry);
+            if (splitted != null) {
+                propk = splitted[0];
+                if (propk != null) {
+                    if (propk.equals("modulename")) {
+                        entry = propk + "=" + getProjectName();
+                    }
+                    if (propk.equals("opencms.version")) {
+                        entry = propk + "=" + getOpenCmsVersion();
+                    }
+                    builder.append(entry);
+                }
+            } else {
+                builder.append(entry);
+            }
+            builder.append("\n");
+        }
+        InputStream in = new ByteArrayInputStream(builder.toString().getBytes());
+        writeFile(in, fo);
+        in.close();
+    }
+
+    private String getProjectName() {
+        File dirF = FileUtil.normalizeFile((File) wiz.getProperty("projdir"));
+        FileObject dir = FileUtil.toFileObject(dirF);
+        return dir.getNameExt();
+    }
+
+    private String getOpenCmsVersion() {
+        String opencmsVersion = (String) wiz.getProperty("opencmsVersion");
+        return opencmsVersion;
+    }
+
+    private static void writeFile(InputStream str, FileObject fo) throws IOException {
         OutputStream out = fo.getOutputStream();
         try {
             FileUtil.copy(str, out);
