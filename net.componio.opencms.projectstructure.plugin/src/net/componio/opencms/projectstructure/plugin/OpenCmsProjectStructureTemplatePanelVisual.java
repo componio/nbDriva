@@ -67,6 +67,9 @@ public class OpenCmsProjectStructureTemplatePanelVisual extends JPanel implement
         createdFolderTextField = new javax.swing.JTextField();
         OpenCmsVersionLabel = new javax.swing.JLabel();
         opencmsVersionComboBox = new javax.swing.JComboBox();
+        opencmsWebInfPath = new javax.swing.JLabel();
+        openCmsWebInfTextField = new javax.swing.JTextField();
+        browseButtonOpenCmsWebInf = new javax.swing.JButton();
 
         projectNameLabel.setLabelFor(projectNameTextField);
         org.openide.awt.Mnemonics.setLocalizedText(projectNameLabel, org.openide.util.NbBundle.getMessage(OpenCmsProjectStructureTemplatePanelVisual.class, "OpenCmsProjectStructureTemplatePanelVisual.projectNameLabel.text")); // NOI18N
@@ -90,14 +93,23 @@ public class OpenCmsProjectStructureTemplatePanelVisual extends JPanel implement
         OpenCmsVersionLabel.setLabelFor(createdFolderTextField);
         org.openide.awt.Mnemonics.setLocalizedText(OpenCmsVersionLabel, org.openide.util.NbBundle.getMessage(OpenCmsProjectStructureTemplatePanelVisual.class, "OpenCmsProjectStructureTemplatePanelVisual.OpenCmsVersionLabel.text")); // NOI18N
 
-        opencmsVersionComboBox.setEditable(true);
         opencmsVersionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "8.5.0", "8.5.1", "8.5.2", "9.0.0", "9.0.1", "9.5.0" }));
         opencmsVersionComboBox.setToolTipText(org.openide.util.NbBundle.getMessage(OpenCmsProjectStructureTemplatePanelVisual.class, "OpenCmsProjectStructureTemplatePanelVisual.opencmsVersionComboBox.toolTipText")); // NOI18N
         opencmsVersionComboBox.setAutoscrolls(true);
-        opencmsVersionComboBox.setRequestFocusEnabled(true);
         opencmsVersionComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 opencmsVersionComboBoxActionPerformed(evt);
+            }
+        });
+
+        opencmsWebInfPath.setLabelFor(opencmsWebInfPath);
+        org.openide.awt.Mnemonics.setLocalizedText(opencmsWebInfPath, org.openide.util.NbBundle.getMessage(OpenCmsProjectStructureTemplatePanelVisual.class, "OpenCmsProjectStructureTemplatePanelVisual.opencmsWebInfPath.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(browseButtonOpenCmsWebInf, org.openide.util.NbBundle.getMessage(OpenCmsProjectStructureTemplatePanelVisual.class, "OpenCmsProjectStructureTemplatePanelVisual.browseButtonOpenCmsWebInf.text")); // NOI18N
+        browseButtonOpenCmsWebInf.setActionCommand(org.openide.util.NbBundle.getMessage(OpenCmsProjectStructureTemplatePanelVisual.class, "OpenCmsProjectStructureTemplatePanelVisual.browseButtonOpenCmsWebInf.actionCommand")); // NOI18N
+        browseButtonOpenCmsWebInf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                browseButtonOpenCmsWebInfActionPerformed(evt);
             }
         });
 
@@ -107,23 +119,25 @@ public class OpenCmsProjectStructureTemplatePanelVisual extends JPanel implement
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(OpenCmsVersionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(projectNameLabel)
+                    .addComponent(projectLocationLabel)
+                    .addComponent(createdFolderLabel)
+                    .addComponent(opencmsWebInfPath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(4, 4, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(projectNameLabel)
-                            .addComponent(projectLocationLabel)
-                            .addComponent(createdFolderLabel))
-                        .addGap(11, 11, 11)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(projectNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                            .addComponent(projectLocationTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(createdFolderTextField)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(OpenCmsVersionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(openCmsWebInfTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                            .addComponent(createdFolderTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                            .addComponent(projectLocationTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(projectNameTextField, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(opencmsVersionComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(browseButton)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(browseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(browseButtonOpenCmsWebInf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(opencmsVersionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -142,11 +156,16 @@ public class OpenCmsProjectStructureTemplatePanelVisual extends JPanel implement
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createdFolderLabel)
                     .addComponent(createdFolderTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(opencmsWebInfPath)
+                    .addComponent(openCmsWebInfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(browseButtonOpenCmsWebInf))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(opencmsVersionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(OpenCmsVersionLabel))
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         OpenCmsVersionLabel.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(OpenCmsProjectStructureTemplatePanelVisual.class, "OpenCmsProjectStructureTemplatePanelVisual.OpenCmsVersionLabel.AccessibleContext.accessibleName")); // NOI18N
@@ -179,12 +198,39 @@ public class OpenCmsProjectStructureTemplatePanelVisual extends JPanel implement
     
     }//GEN-LAST:event_opencmsVersionComboBoxActionPerformed
 
+    private void browseButtonOpenCmsWebInfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonOpenCmsWebInfActionPerformed
+        String command = evt.getActionCommand();
+        if ("BROWSE".equals(command)) {
+            JFileChooser chooser = new JFileChooser();
+            FileUtil.preventFileChooserSymlinkTraversal(chooser, null);
+            chooser.setDialogTitle("Select OpenCms WEB-INF Location");
+            chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            String path = this.openCmsWebInfTextField.getText();
+            if (path.length() > 0) {
+                File f = new File(path);
+                if (f.exists()) {
+                    chooser.setSelectedFile(f);
+                }
+            }
+            if (JFileChooser.APPROVE_OPTION == chooser.showOpenDialog(this)) {
+                File webInfDir = chooser.getSelectedFile();
+                String webInfPath = FileUtil.normalizeFile(webInfDir).getAbsolutePath();
+                webInfPath = webInfPath.replace("\\", "/");
+                openCmsWebInfTextField.setText(webInfPath);
+            }
+            panel.fireChangeEvent();
+        }
+    }//GEN-LAST:event_browseButtonOpenCmsWebInfActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel OpenCmsVersionLabel;
     private javax.swing.JButton browseButton;
+    private javax.swing.JButton browseButtonOpenCmsWebInf;
     private javax.swing.JLabel createdFolderLabel;
     private javax.swing.JTextField createdFolderTextField;
+    private javax.swing.JTextField openCmsWebInfTextField;
     private javax.swing.JComboBox opencmsVersionComboBox;
+    private javax.swing.JLabel opencmsWebInfPath;
     private javax.swing.JLabel projectLocationLabel;
     private javax.swing.JTextField projectLocationTextField;
     private javax.swing.JLabel projectNameLabel;
@@ -245,9 +291,11 @@ public class OpenCmsProjectStructureTemplatePanelVisual extends JPanel implement
         String name = projectNameTextField.getText().trim();
         String folder = createdFolderTextField.getText().trim();
         String opencmsVersion = opencmsVersionComboBox.getSelectedItem().toString().trim();
+        String opencmsWebInf = openCmsWebInfTextField.getText().trim();
         d.putProperty("projdir", new File(folder));
         d.putProperty("name", name);
         d.putProperty("opencmsVersion", opencmsVersion);
+        d.putProperty("opencmsWebInf", opencmsWebInf);
     }
 
     void read(WizardDescriptor settings) {

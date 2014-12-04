@@ -205,7 +205,7 @@ public class OpenCmsProjectStructureTemplateWizardIterator implements WizardDesc
         }
     }
 
-    private static String readStreamToString(InputStream str) throws IOException {
+    private static String copyStreamToString(InputStream str) throws IOException {
         StringBuilder builder = new StringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(str));
         for (String line = br.readLine(); line != null; line = br.readLine()) {
@@ -244,7 +244,7 @@ public class OpenCmsProjectStructureTemplateWizardIterator implements WizardDesc
     }
 
     private void setDefaultProperties(InputStream str, FileObject fo) throws IOException {
-        String content = readStreamToString(str);
+        String content = copyStreamToString(str);
         String[] entries = getEntriesFromString(content);
         String propk;
         StringBuilder builder = new StringBuilder();
@@ -252,19 +252,17 @@ public class OpenCmsProjectStructureTemplateWizardIterator implements WizardDesc
             String[] splitted = splitKeyAndValueFromPropertyEntry(entry);
             if (splitted != null) {
                 propk = splitted[0];
-                if (propk != null) {
-                    if (propk.equals("modulename")) {
-                        entry = propk + "=" + getProjectName();
-                    }
-                    if (propk.equals("opencms.version")) {
-                        entry = propk + "=" + getOpenCmsVersion();
-                    }
-                    builder.append(entry);
+                if (propk.equals("modulename")) {
+                    entry = propk + "=" + getProjectName();
                 }
-            } else {
-                builder.append(entry);
+                if (propk.equals("opencms.version")) {
+                    entry = propk + "=" + getOpenCmsVersion();
+                }
+                if (propk.equals("cmsWebInfDir")) {
+                    entry = propk + "=" + getOpenCmsWebInf();
+                }
             }
-            builder.append("\n");
+            builder.append(entry).append("\n");
         }
         InputStream in = new ByteArrayInputStream(builder.toString().getBytes());
         writeFile(in, fo);
@@ -280,6 +278,11 @@ public class OpenCmsProjectStructureTemplateWizardIterator implements WizardDesc
     private String getOpenCmsVersion() {
         String opencmsVersion = (String) wiz.getProperty("opencmsVersion");
         return opencmsVersion;
+    }
+
+    private String getOpenCmsWebInf() {
+        String openCmsWebInf = (String) wiz.getProperty("opencmsWebInf");
+        return openCmsWebInf;
     }
 
     private static void writeFile(InputStream str, FileObject fo) throws IOException {

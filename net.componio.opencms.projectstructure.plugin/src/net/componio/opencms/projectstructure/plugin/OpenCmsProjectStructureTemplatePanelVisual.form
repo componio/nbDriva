@@ -18,28 +18,30 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="OpenCmsVersionLabel" max="32767" attributes="0"/>
+                  <Component id="projectNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="projectLocationLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="createdFolderLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="opencmsWebInfPath" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace min="5" pref="4" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="projectNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="projectLocationLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="createdFolderLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="openCmsWebInfTextField" pref="261" max="32767" attributes="0"/>
+                          <Component id="createdFolderTextField" alignment="0" pref="261" max="32767" attributes="0"/>
+                          <Component id="projectLocationTextField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="projectNameTextField" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="projectNameTextField" pref="184" max="32767" attributes="0"/>
-                          <Component id="projectLocationTextField" alignment="1" max="32767" attributes="0"/>
-                          <Component id="createdFolderTextField" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="OpenCmsVersionLabel" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="opencmsVersionComboBox" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="browseButton" min="-2" pref="79" max="-2" attributes="0"/>
+                          <Component id="browseButtonOpenCmsWebInf" alignment="1" min="-2" pref="79" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
+                  <Component id="opencmsVersionComboBox" min="-2" pref="61" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="browseButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -63,12 +65,18 @@
                   <Component id="createdFolderLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="createdFolderTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="opencmsVersionComboBox" min="-2" max="-2" attributes="0"/>
-                  <Component id="OpenCmsVersionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="opencmsWebInfPath" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="openCmsWebInfTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="browseButtonOpenCmsWebInf" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="184" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="opencmsVersionComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="OpenCmsVersionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="150" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -149,7 +157,6 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="opencmsVersionComboBox">
       <Properties>
-        <Property name="editable" type="boolean" value="true"/>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="6">
             <StringItem index="0" value="8.5.0"/>
@@ -164,10 +171,34 @@
           <ResourceString bundle="net/componio/opencms/projectstructure/plugin/Bundle.properties" key="OpenCmsProjectStructureTemplatePanelVisual.opencmsVersionComboBox.toolTipText" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
         <Property name="autoscrolls" type="boolean" value="true"/>
-        <Property name="requestFocusEnabled" type="boolean" value="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opencmsVersionComboBoxActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="opencmsWebInfPath">
+      <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="opencmsWebInfPath"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="net/componio/opencms/projectstructure/plugin/Bundle.properties" key="OpenCmsProjectStructureTemplatePanelVisual.opencmsWebInfPath.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="openCmsWebInfTextField">
+    </Component>
+    <Component class="javax.swing.JButton" name="browseButtonOpenCmsWebInf">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="net/componio/opencms/projectstructure/plugin/Bundle.properties" key="OpenCmsProjectStructureTemplatePanelVisual.browseButtonOpenCmsWebInf.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+        </Property>
+        <Property name="actionCommand" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="net/componio/opencms/projectstructure/plugin/Bundle.properties" key="OpenCmsProjectStructureTemplatePanelVisual.browseButtonOpenCmsWebInf.actionCommand" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="browseButtonOpenCmsWebInfActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
