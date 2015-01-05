@@ -16,6 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.tools.ant.module.api.support.ActionUtils;
 import org.openide.filesystems.FileObject;
@@ -30,7 +32,7 @@ public class ImportModulePluginPanel extends javax.swing.JPanel {
     final JFileChooser fileChooser = new JFileChooser();
     final List<File> allSelectedFiles = new ArrayList<File>();
     final FileObject buildScript;
-    private File nbDrivaConfigFile;
+    private final File nbDrivaConfigFile;
 
     /**
      * Creates new form ImportModulePluginPanel
@@ -148,6 +150,9 @@ public class ImportModulePluginPanel extends javax.swing.JPanel {
         try {
             updateNbDrivaConfigFile();
             ActionUtils.runTarget(buildScript, new String[]{"build_import_module"}, null);
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            frame.setVisible(false);
+            frame.setEnabled(false);
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
         } catch (IllegalArgumentException ex) {
