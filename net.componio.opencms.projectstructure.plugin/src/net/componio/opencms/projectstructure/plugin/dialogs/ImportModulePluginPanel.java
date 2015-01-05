@@ -218,6 +218,7 @@ public class ImportModulePluginPanel extends javax.swing.JPanel {
             outputStream.close();
         }
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addModules;
     private javax.swing.JList fileNames;

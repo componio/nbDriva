@@ -458,9 +458,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_acPackage.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_acPackageActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_cms_repo_url">
               <Properties>
@@ -468,9 +465,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_cms_repo_url.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_cms_repo_urlActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_cms_repo_id">
               <Properties>
@@ -478,9 +472,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_cms_repo_id.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_cms_repo_idActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_cms_servlet_mapping">
               <Properties>
@@ -488,9 +479,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_cms_servlet_mapping.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_cms_servlet_mappingActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_cms_sync">
               <Properties>
@@ -498,9 +486,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_cms_sync.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_cms_syncActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_cms_web_inf_dir">
               <Properties>
@@ -508,9 +493,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_cms_web_inf_dir.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_cms_web_inf_dirActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_exclusion_file">
               <Properties>
@@ -518,9 +500,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_exclusion_file.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_exclusion_fileActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_included_sync_folders">
               <Properties>
@@ -528,9 +507,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_included_sync_folders.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_included_sync_foldersActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_ivy_install_version">
               <Properties>
@@ -538,9 +514,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_ivy_install_version.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_ivy_install_versionActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_ivy_jar_dir">
               <Properties>
@@ -548,9 +521,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_ivy_jar_dir.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_ivy_jar_dirActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_ivy_jar_file">
               <Properties>
@@ -558,9 +528,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_ivy_jar_file.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_ivy_jar_fileActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_ivy_resolved_libs_dir">
               <Properties>
@@ -568,9 +535,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_ivy_resolved_libs_dir.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_ivy_resolved_libs_dirActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_module_action_class">
               <Properties>
@@ -578,9 +542,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_module_action_class.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_module_action_classActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_module_dir">
               <Properties>
@@ -588,9 +549,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_module_dir.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_module_dirActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_module_name">
               <Properties>
@@ -598,9 +556,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_module_name.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_module_nameActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_module_path">
               <Properties>
@@ -608,9 +563,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_module_path.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_module_pathActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_module_version">
               <Properties>
@@ -618,9 +570,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_module_version.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_module_versionActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_opencms_version">
               <Properties>
@@ -628,9 +577,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_opencms_version.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_opencms_versionActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="textfield_package_path">
               <Properties>
@@ -638,9 +584,6 @@
                   <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="ModulePropertiesPluginPanel.textfield_package_path.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textfield_package_pathActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkbox_use_exclusion_file">
               <Properties>

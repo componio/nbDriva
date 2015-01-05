@@ -51,3 +51,4 @@ public class ModulePropertiesTextFieldDocumentListener implements DocumentListen
         updateProperty();
     }
 }
+

@@ -136,3 +136,4 @@ public final class ModulePropertiesAction extends AbstractAction implements Look
         return new ModulePropertiesAction(lkp);
     }
 }
+

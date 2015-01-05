@@ -5,8 +5,6 @@
  */
 package net.componio.opencms.projectstructure.plugin.dialogs;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,8 +18,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import org.openide.filesystems.FileUtil;
 import org.openide.util.Exceptions;
 
@@ -43,7 +39,10 @@ public class ModulePropertiesPluginPanel extends javax.swing.JPanel {
         this.individualConfigPath = individualConfigFile;
         initModuleProperties(individualConfigFile, defaultConfigFile);
         updateComponentsWithPropertyValues();
+        assignDocumentListenersToComponents();
+    }
 
+    private void assignDocumentListenersToComponents() {
         textfield_acPackage.getDocument().addDocumentListener(
                 new ModulePropertiesTextFieldDocumentListener(textfield_acPackage, module_properties, label_acPackage.getText()));
         textfield_classpath_compile_jar.getDocument().addDocumentListener(
@@ -287,137 +286,42 @@ public class ModulePropertiesPluginPanel extends javax.swing.JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(label_use_exclusion_file, org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.label_use_exclusion_file.text")); // NOI18N
 
         textfield_acPackage.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_acPackage.text")); // NOI18N
-        textfield_acPackage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_acPackageActionPerformed(evt);
-            }
-        });
 
         textfield_cms_repo_url.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_cms_repo_url.text")); // NOI18N
-        textfield_cms_repo_url.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_cms_repo_urlActionPerformed(evt);
-            }
-        });
 
         textfield_cms_repo_id.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_cms_repo_id.text")); // NOI18N
-        textfield_cms_repo_id.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_cms_repo_idActionPerformed(evt);
-            }
-        });
 
         textfield_cms_servlet_mapping.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_cms_servlet_mapping.text")); // NOI18N
-        textfield_cms_servlet_mapping.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_cms_servlet_mappingActionPerformed(evt);
-            }
-        });
 
         textfield_cms_sync.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_cms_sync.text")); // NOI18N
-        textfield_cms_sync.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_cms_syncActionPerformed(evt);
-            }
-        });
 
         textfield_cms_web_inf_dir.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_cms_web_inf_dir.text")); // NOI18N
-        textfield_cms_web_inf_dir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_cms_web_inf_dirActionPerformed(evt);
-            }
-        });
 
         textfield_exclusion_file.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_exclusion_file.text")); // NOI18N
-        textfield_exclusion_file.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_exclusion_fileActionPerformed(evt);
-            }
-        });
 
         textfield_included_sync_folders.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_included_sync_folders.text")); // NOI18N
-        textfield_included_sync_folders.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_included_sync_foldersActionPerformed(evt);
-            }
-        });
 
         textfield_ivy_install_version.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_ivy_install_version.text")); // NOI18N
-        textfield_ivy_install_version.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_ivy_install_versionActionPerformed(evt);
-            }
-        });
 
         textfield_ivy_jar_dir.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_ivy_jar_dir.text")); // NOI18N
-        textfield_ivy_jar_dir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_ivy_jar_dirActionPerformed(evt);
-            }
-        });
 
         textfield_ivy_jar_file.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_ivy_jar_file.text")); // NOI18N
-        textfield_ivy_jar_file.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_ivy_jar_fileActionPerformed(evt);
-            }
-        });
 
         textfield_ivy_resolved_libs_dir.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_ivy_resolved_libs_dir.text")); // NOI18N
-        textfield_ivy_resolved_libs_dir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_ivy_resolved_libs_dirActionPerformed(evt);
-            }
-        });
 
         textfield_module_action_class.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_module_action_class.text")); // NOI18N
-        textfield_module_action_class.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_module_action_classActionPerformed(evt);
-            }
-        });
 
         textfield_module_dir.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_module_dir.text")); // NOI18N
-        textfield_module_dir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_module_dirActionPerformed(evt);
-            }
-        });
 
         textfield_module_name.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_module_name.text")); // NOI18N
-        textfield_module_name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_module_nameActionPerformed(evt);
-            }
-        });
 
         textfield_module_path.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_module_path.text")); // NOI18N
-        textfield_module_path.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_module_pathActionPerformed(evt);
-            }
-        });
 
         textfield_module_version.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_module_version.text")); // NOI18N
-        textfield_module_version.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_module_versionActionPerformed(evt);
-            }
-        });
 
         textfield_opencms_version.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_opencms_version.text")); // NOI18N
-        textfield_opencms_version.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_opencms_versionActionPerformed(evt);
-            }
-        });
 
         textfield_package_path.setText(org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.textfield_package_path.text")); // NOI18N
-        textfield_package_path.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textfield_package_pathActionPerformed(evt);
-            }
-        });
 
         org.openide.awt.Mnemonics.setLocalizedText(checkbox_use_exclusion_file, org.openide.util.NbBundle.getMessage(ModulePropertiesPluginPanel.class, "ModulePropertiesPluginPanel.checkbox_use_exclusion_file.text")); // NOI18N
         checkbox_use_exclusion_file.addActionListener(new java.awt.event.ActionListener() {
@@ -767,12 +671,6 @@ public class ModulePropertiesPluginPanel extends javax.swing.JPanel {
         this.updateUI();
     }
 
-    private void textfield_opencms_versionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_opencms_versionActionPerformed
-        if (module_properties.containsKey(label_opencms_version.getText())) {
-            module_properties.put(label_opencms_version.getText(), textfield_opencms_version.getText());
-        }
-    }//GEN-LAST:event_textfield_opencms_versionActionPerformed
-
     private void checkbox_use_exclusion_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkbox_use_exclusion_fileActionPerformed
         if (module_properties.containsKey(label_use_exclusion_file.getText())) {
             module_properties.put(label_use_exclusion_file.getText(), Boolean.toString(checkbox_use_exclusion_file.isSelected()));
@@ -817,12 +715,6 @@ public class ModulePropertiesPluginPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_button_saveActionPerformed
-
-    private void textfield_exclusion_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_exclusion_fileActionPerformed
-        if (module_properties.containsKey(label_exclusion_file.getText())) {
-            module_properties.put(label_exclusion_file.getText(), textfield_exclusion_file.getText());
-        }
-    }//GEN-LAST:event_textfield_exclusion_fileActionPerformed
 
     private void addFileChooserActionPerformed(JFileChooser chooser, JTextField textfield, java.awt.event.ActionEvent evt) {
         if (evt.getActionCommand().equalsIgnoreCase("ApproveSelection")) {
@@ -916,119 +808,6 @@ public class ModulePropertiesPluginPanel extends javax.swing.JPanel {
         frame.setVisible(false);
         frame.setEnabled(false);
     }//GEN-LAST:event_button_cancelActionPerformed
-
-    private void textfield_acPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_acPackageActionPerformed
-        if (module_properties.containsKey(label_acPackage.getText())) {
-            module_properties.put(label_acPackage.getText(), textfield_acPackage.getText());
-        }
-    }//GEN-LAST:event_textfield_acPackageActionPerformed
-
-    private void textfield_cms_repo_urlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_cms_repo_urlActionPerformed
-        if (module_properties.containsKey(label_cms_repo_url.getText())) {
-            module_properties.put(label_cms_repo_url.getText(), textfield_cms_repo_url.getText());
-        }
-    }//GEN-LAST:event_textfield_cms_repo_urlActionPerformed
-
-    private void textfield_cms_repo_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_cms_repo_idActionPerformed
-        if (module_properties.containsKey(label_cms_repo_id.getText())) {
-            module_properties.put(label_cms_repo_id.getText(), textfield_cms_repo_id.getText());
-        }
-    }//GEN-LAST:event_textfield_cms_repo_idActionPerformed
-
-    private void textfield_cms_servlet_mappingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_cms_servlet_mappingActionPerformed
-        if (module_properties.containsKey(label_cms_servlet_mapping.getText())) {
-            module_properties.put(label_cms_servlet_mapping.getText(), textfield_cms_servlet_mapping.getText());
-        }
-    }//GEN-LAST:event_textfield_cms_servlet_mappingActionPerformed
-
-    private void textfield_cms_syncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_cms_syncActionPerformed
-        if (module_properties.containsKey(label_cms_sync.getText())) {
-            module_properties.put(label_cms_sync.getText(), textfield_cms_sync.getText());
-        }
-    }//GEN-LAST:event_textfield_cms_syncActionPerformed
-
-    private void textfield_cms_web_inf_dirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_cms_web_inf_dirActionPerformed
-        if (module_properties.containsKey(label_cms_web_inf_dir.getText())) {
-            module_properties.put(label_cms_web_inf_dir.getText(), textfield_cms_web_inf_dir.getText());
-        }
-    }//GEN-LAST:event_textfield_cms_web_inf_dirActionPerformed
-
-    private void textfield_included_sync_foldersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_included_sync_foldersActionPerformed
-        if (module_properties.containsKey(label_included_sync_folders.getText())) {
-            module_properties.put(label_included_sync_folders.getText(), textfield_included_sync_folders.getText());
-        }
-    }//GEN-LAST:event_textfield_included_sync_foldersActionPerformed
-
-    private void textfield_ivy_install_versionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_ivy_install_versionActionPerformed
-        if (module_properties.containsKey(label_ivy_install_version.getText())) {
-            module_properties.put(label_ivy_install_version.getText(), textfield_ivy_install_version.getText());
-        }
-    }//GEN-LAST:event_textfield_ivy_install_versionActionPerformed
-
-    private void textfield_ivy_jar_dirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_ivy_jar_dirActionPerformed
-        if (module_properties.containsKey(label_ivy_jar_dir.getText())) {
-            module_properties.put(label_ivy_jar_dir.getText(), textfield_ivy_jar_dir.getText());
-        }
-    }//GEN-LAST:event_textfield_ivy_jar_dirActionPerformed
-
-    private void textfield_ivy_jar_fileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_ivy_jar_fileActionPerformed
-        if (module_properties.containsKey(label_ivy_jar_file.getText())) {
-            module_properties.put(label_ivy_jar_file.getText(), textfield_ivy_jar_file.getText());
-        }
-    }//GEN-LAST:event_textfield_ivy_jar_fileActionPerformed
-
-    private void textfield_ivy_resolved_libs_dirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_ivy_resolved_libs_dirActionPerformed
-        if (module_properties.containsKey(label_ivy_resolved_libs_dir.getText())) {
-            module_properties.put(label_ivy_resolved_libs_dir.getText(), textfield_ivy_resolved_libs_dir.getText());
-        }
-    }//GEN-LAST:event_textfield_ivy_resolved_libs_dirActionPerformed
-
-    private void textfield_module_action_classActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_module_action_classActionPerformed
-        if (module_properties.containsKey(label_module_action_class.getText())) {
-            module_properties.put(label_module_action_class.getText(), textfield_module_action_class.getText());
-        }
-    }//GEN-LAST:event_textfield_module_action_classActionPerformed
-
-    private void textfield_module_dirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_module_dirActionPerformed
-        if (module_properties.containsKey(label_module_dir.getText())) {
-            module_properties.put(label_module_dir.getText(), textfield_module_dir.getText());
-        }
-    }//GEN-LAST:event_textfield_module_dirActionPerformed
-
-    private void textfield_module_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_module_nameActionPerformed
-        File f = new File("C:/Users/Tom/Desktop/testlistener.txt");
-        try {
-            f.createNewFile();
-            FileWriter writer = new FileWriter(f);
-            writer.write("Bin drinne!\n");
-            writer.write(textfield_module_name.getText());
-            writer.close();
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
-        }
-        if (module_properties.containsKey(label_module_name.getText())) {
-
-            module_properties.put(label_module_name.getText(), textfield_module_name.getText());
-        }
-    }//GEN-LAST:event_textfield_module_nameActionPerformed
-
-    private void textfield_module_pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_module_pathActionPerformed
-        if (module_properties.containsKey(label_module_path.getText())) {
-            module_properties.put(label_module_path.getText(), textfield_module_path.getText());
-        }
-    }//GEN-LAST:event_textfield_module_pathActionPerformed
-
-    private void textfield_module_versionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_module_versionActionPerformed
-        if (module_properties.containsKey(label_module_version.getText())) {
-            module_properties.put(label_module_version.getText(), textfield_module_version.getText());
-        }
-    }//GEN-LAST:event_textfield_module_versionActionPerformed
-
-    private void textfield_package_pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_package_pathActionPerformed
-        if (module_properties.containsKey(label_package_path.getText())) {
-            module_properties.put(label_package_path.getText(), textfield_package_path.getText());
-        }
-    }//GEN-LAST:event_textfield_package_pathActionPerformed
 
     private void textfield_script_dirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_script_dirActionPerformed
         if (module_properties.containsKey(label_script_dir.getText())) {
