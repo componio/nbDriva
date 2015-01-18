@@ -123,42 +123,42 @@
             <fileset dir="build/web/WEB-INF/classes"/>
         </copy>
         <copy todir="${cmsSync}${acPackage}/elements">
-            <fileset dir="./WEB/elements">
+            <fileset dir="./Web/elements">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
         <copy todir="${cmsSync}${acPackage}/formatters">
-            <fileset dir="./WEB/formatters">
+            <fileset dir="./Web/formatters">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
         <copy todir="${cmsSync}${acPackage}/lib">
-            <fileset dir="./WEB/WEB-INF/lib">
+            <fileset dir="./Web/WEB-INF/lib">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
         <copy todir="${cmsSync}${acPackage}/resources">
-            <fileset dir="./WEB/resources">
+            <fileset dir="./Web/resources">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
         <copy todir="${cmsSync}${acPackage}/templates">
-            <fileset dir="./WEB/templates">
+            <fileset dir="./Web/templates">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
         <copy todir="${cmsSync}${acPackage}/schemas">
-            <fileset dir="./WEB/schemas">
+            <fileset dir="./Web/schemas">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
         <copy todir="${cmsSync}${acPackage}/doc">
-            <fileset dir="./WEB/doc">
+            <fileset dir="./Web/doc">
                 <exclude name=".svn"/>
             </fileset>
         </copy>
         <copy todir="${cmsSync}${acPackage}/functions">
-            <fileset dir="./WEB/functions">
+            <fileset dir="./Web/functions">
                 <exclude name=".svn"/>
             </fileset>
         </copy>        

@@ -50,7 +50,7 @@ import org.openide.util.Utilities;
 @ActionRegistration(
         displayName = "#CTL_ReverseSyncModuleAction")
 @ActionReferences({
-    @ActionReference(path = "Projects/Actions",position = 15)
+    @ActionReference(path = "Projects/Actions",position = 20)
 })
 @Messages("CTL_ReverseSyncModuleAction=Reverse Sync Module")
 public final class ReverseSyncModuleAction extends AbstractAction implements LookupListener, ContextAwareAction {

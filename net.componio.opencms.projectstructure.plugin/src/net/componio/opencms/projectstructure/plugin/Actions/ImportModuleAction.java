@@ -57,7 +57,7 @@ import org.openide.util.Utilities;
 @ActionRegistration(
         displayName = "#CTL_ImportModuleAction")
 @ActionReferences({
-    @ActionReference(path = "Projects/Actions", position = 10)
+    @ActionReference(path = "Projects/Actions", position = 15)
 })
 @Messages("CTL_ImportModuleAction=Import Module")
 public final class ImportModuleAction extends AbstractAction implements LookupListener, ContextAwareAction {

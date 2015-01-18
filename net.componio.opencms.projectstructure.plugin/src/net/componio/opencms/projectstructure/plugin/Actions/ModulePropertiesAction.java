@@ -54,7 +54,7 @@ import org.openide.util.Utilities;
 @ActionRegistration(
         displayName = "#CTL_ModulePropertiesAction")
 @ActionReferences({
-    @ActionReference(path = "Projects/Actions", position = 30)
+    @ActionReference(path = "Projects/Actions", position = 35)
 })
 @Messages("CTL_ModulePropertiesAction=Module" + " Properties")
 public final class ModulePropertiesAction extends AbstractAction implements LookupListener, ContextAwareAction {

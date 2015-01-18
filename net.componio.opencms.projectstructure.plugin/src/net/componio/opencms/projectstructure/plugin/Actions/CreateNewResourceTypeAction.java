@@ -24,10 +24,16 @@ package net.componio.opencms.projectstructure.plugin.Actions;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import static javax.swing.Action.NAME;
+import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import net.componio.opencms.projectstructure.plugin.dialogs.CreateNewResourceTypePanel;
+import net.componio.opencms.projectstructure.plugin.dialogs.ImportModulePluginPanel;
 import org.apache.tools.ant.module.api.support.ActionUtils;
 import org.netbeans.api.project.Project;
 import org.openide.awt.ActionID;
@@ -46,43 +52,54 @@ import org.openide.util.Utilities;
 
 @ActionID(
         category = "Build",
-        id = "net.componio.opencms.projectstructure.plugin.Actions.ResolveDependenciesAction")
+        id = "net.componio.opencms.projectstructure.plugin.Actions.CreateNewResourceTypeAction")
 @ActionRegistration(
-        displayName = "#CTL_ResolveDependenciesAction")
+        displayName = "#CTL_CreateNewResourceTypeAction")
 @ActionReferences({
-    @ActionReference(path = "Projects/Actions", position = 30)
+    @ActionReference(path = "Projects/Actions", position = 10)
 })
-@Messages("CTL_ResolveDependenciesAction=Ivy Resolve Dependencies")
-public final class ResolveDependenciesAction extends AbstractAction implements LookupListener, ContextAwareAction {
+@Messages("CTL_CreateNewResourceTypeAction=Create Resource Type")
+public final class CreateNewResourceTypeAction extends AbstractAction implements LookupListener, ContextAwareAction {
 
     private Lookup context;
     private Project project;
     private Lookup.Result result;
 
-    ResolveDependenciesAction() {
+    CreateNewResourceTypeAction() {
         this(Utilities.actionsGlobalContext());
     }
 
-    ResolveDependenciesAction(Lookup context) {
+    CreateNewResourceTypeAction(Lookup context) {
         this.context = context;
         this.project = context.lookup(Project.class);
         this.result = this.context.lookupResult(Project.class);
         result.addLookupListener(this);
         resultChanged(new LookupEvent(result));
         putValue(DynamicMenuContent.HIDE_WHEN_DISABLED, true);
-        putValue(NAME, Bundle.CTL_ResolveDependenciesAction());
+        putValue(NAME, Bundle.CTL_CreateNewResourceTypeAction());
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        FileObject buildScript = project.getProjectDirectory().getFileObject("build.xml");
-        try {
-            ActionUtils.runTarget(buildScript, new String[]{"build-classpath-jar"}, null);
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
-        } catch (IllegalArgumentException ex) {
-            Exceptions.printStackTrace(ex);
-        }
+        final FileObject buildScript = project.getProjectDirectory().getFileObject("build.xml");
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getLookAndFeel());
+                    JFrame f = new JFrame();
+                    //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    f.add(new CreateNewResourceTypePanel(
+                            buildScript,
+                            project.getProjectDirectory()));
+                    f.pack();
+                    f.setResizable(false);
+                    //f.setDefaultCloseOperation(3);
+                    f.setVisible(true);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Exceptions.printStackTrace(ex);
+                }
+            }
+        });
     }
 
     @Override
@@ -105,7 +122,6 @@ public final class ResolveDependenciesAction extends AbstractAction implements L
 
     @Override
     public Action createContextAwareInstance(Lookup lkp) {
-        return new ResolveDependenciesAction(lkp);
+        return new CreateNewResourceTypeAction(lkp);
     }
 }
-
