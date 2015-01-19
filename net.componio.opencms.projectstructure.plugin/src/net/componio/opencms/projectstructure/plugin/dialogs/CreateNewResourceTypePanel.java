@@ -5,11 +5,22 @@
  */
 package net.componio.opencms.projectstructure.plugin.dialogs;
 
+import java.awt.Color;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Enumeration;
+import java.util.Properties;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import org.apache.tools.ant.module.api.support.ActionUtils;
 import org.openide.filesystems.FileObject;
+import org.openide.filesystems.FileUtil;
 import org.openide.util.Exceptions;
 
 /**
@@ -22,10 +33,6 @@ public class CreateNewResourceTypePanel extends javax.swing.JPanel {
     private FileObject projectDirectory;
 
     private String ide_project;
-    private String ide_schemas;
-    private String ide_formatters;
-    private String ide_scripts;
-    private String ide_web;
 
     /**
      * Creates new form CreateNewResourceTypePanel
@@ -44,23 +51,58 @@ public class CreateNewResourceTypePanel extends javax.swing.JPanel {
     private void initPaths() {
         File project = new File(projectDirectory.getPath());
         ide_project = project.exists() ? project.getAbsolutePath().replace("\\", "/") : "";
+    }
 
-        File web = new File(projectDirectory.getFileObject("Web").getPath());
-        ide_web = web.exists() ? web.getAbsolutePath().replace("\\", "/") : "";
+    private Properties getModuleProperties(String individualConfigFile, String defaultConfigFile) throws FileNotFoundException, IOException {
+        Properties module_properties = new Properties();
+        FileInputStream inputStream = null;
+        inputStream = new FileInputStream(individualConfigFile);
+        module_properties.load(inputStream);
 
-        File schemas = new File(projectDirectory.getFileObject("Web").getFileObject("schemas").getPath());
-        ide_schemas = schemas.exists() ? schemas.getAbsolutePath().replace("\\", "/") : "";
+        inputStream = new FileInputStream(defaultConfigFile);
+        Properties default_props = new Properties();
+        default_props.load(inputStream);
 
-        File formatters = new File(projectDirectory.getFileObject("Web").getFileObject("formatters").getPath());
-        ide_formatters = formatters.exists() ? formatters.getAbsolutePath().replace("\\", "/") : "";
+        for (String key : default_props.stringPropertyNames()) {
+            if (!module_properties.containsKey(key)) {
+                module_properties.put(key, default_props.getProperty(key));
+            }
+        }
+        return module_properties;
+    }
 
+    private void generateCmsShellScriptForNewResourceType(String individualConfig, String defaultConfig) throws IOException {
         File scripts = new File(projectDirectory.getFileObject("scripts").getPath());
-        ide_scripts = scripts.exists() ? scripts.getAbsolutePath().replace("\\", "/") : "";
+        String ide_scripts = scripts.exists() ? scripts.getAbsolutePath().replace("\\", "/") : "";
+        if (scripts.exists() && scripts.isDirectory()) {
+            File createNewResourceType = new File(ide_scripts + "/" + "createNewResourceType.txt");
+            Properties props = getModuleProperties(individualConfig, defaultConfig);
+            StringBuilder builder = new StringBuilder();
+            builder.append("echo on\n");
+            builder.append("login \"")
+                    .append(props.getProperty("username")).append("\" \"")
+                    .append(props.getProperty("password")).append("\"\n");
+            builder.append("setCurrentProject \"Offline\"\n");
+            builder.append("createNewResourceType ")
+                    .append("\"").append(props.getProperty("modulename")).append("\" ")
+                    .append("\"").append(textfield_resource_type_id.getText()).append("\" ")
+                    .append("\"").append(textfield_resource_type_name.getText()).append("\" ")
+                    .append("\"").append(textfield_resource_type_nice_name.getText()).append("\" ")
+                    .append("\"").append(textfield_resource_type_title.getText()).append("\" ")
+                    .append("\"").append(textfield_resource_type_description.getText()).append("\" ")
+                    .append("\"").append(textfield_schema_type_name.getText()).append("\" ")
+                    .append("\"").append(ide_project).append("\" ")
+                    .append("\"").append(textfield_icon.getText()).append("\"\n");
+            builder.append("publishResources \"")
+                    .append(props.getProperty("modulepath")).append("/")
+                    .append(props.getProperty("modulename")).append("\" true\n");
+            FileWriter filewriter = new FileWriter(createNewResourceType, false);
+            BufferedWriter writer = new BufferedWriter(filewriter);
+            writer.write(builder.toString());
+            writer.close();
+        }
     }
-    
-    private void generateCmsShellScriptForNewResourceType() {
-        
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,6 +126,9 @@ public class CreateNewResourceTypePanel extends javax.swing.JPanel {
         textfield_schema_type_name = new javax.swing.JTextField();
         button_save = new javax.swing.JButton();
         button_cancel = new javax.swing.JButton();
+        label_icon = new javax.swing.JLabel();
+        textfield_icon = new javax.swing.JTextField();
+        button_icon = new javax.swing.JButton();
 
         org.openide.awt.Mnemonics.setLocalizedText(label_resource_type_id, org.openide.util.NbBundle.getMessage(CreateNewResourceTypePanel.class, "CreateNewResourceTypePanel.label_resource_type_id.text")); // NOI18N
 
@@ -123,6 +168,17 @@ public class CreateNewResourceTypePanel extends javax.swing.JPanel {
             }
         });
 
+        org.openide.awt.Mnemonics.setLocalizedText(label_icon, org.openide.util.NbBundle.getMessage(CreateNewResourceTypePanel.class, "CreateNewResourceTypePanel.label_icon.text")); // NOI18N
+
+        textfield_icon.setText(org.openide.util.NbBundle.getMessage(CreateNewResourceTypePanel.class, "CreateNewResourceTypePanel.textfield_icon.text")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(button_icon, org.openide.util.NbBundle.getMessage(CreateNewResourceTypePanel.class, "CreateNewResourceTypePanel.button_icon.text")); // NOI18N
+        button_icon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_iconActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -131,13 +187,18 @@ public class CreateNewResourceTypePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(button_save, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(button_cancel))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label_resource_type_id)
                             .addComponent(label_resource_type_name)
                             .addComponent(label_resource_type_nice_name)
                             .addComponent(label_resource_type_title)
                             .addComponent(label_resource_type_description)
-                            .addComponent(label_schema_type_name))
+                            .addComponent(label_schema_type_name)
+                            .addComponent(label_icon))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(textfield_resource_type_id)
@@ -145,12 +206,11 @@ public class CreateNewResourceTypePanel extends javax.swing.JPanel {
                             .addComponent(textfield_resource_type_nice_name)
                             .addComponent(textfield_resource_type_title)
                             .addComponent(textfield_resource_type_description)
-                            .addComponent(textfield_schema_type_name, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(button_save, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(button_cancel)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                            .addComponent(textfield_schema_type_name, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                            .addComponent(textfield_icon))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(button_icon)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,7 +239,12 @@ public class CreateNewResourceTypePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textfield_schema_type_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_schema_type_name))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_icon)
+                    .addComponent(textfield_icon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button_icon))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button_save)
                     .addComponent(button_cancel))
@@ -188,13 +253,45 @@ public class CreateNewResourceTypePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_cancelActionPerformed
-        // TODO add your handling code here:
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.setVisible(false);
+        frame.setEnabled(false);
     }//GEN-LAST:event_button_cancelActionPerformed
 
+    private boolean isTextFieldNotEmpty(JTextField field, JLabel label) {
+        if (!field.getText().isEmpty()) {
+            label.setForeground(Color.black);
+            return true;
+        } else {
+            label.setForeground(Color.red);
+            return false;
+        }
+    }
+
+    private boolean areTextFieldsNotEmpty() {
+        boolean result = true;
+        result = isTextFieldNotEmpty(textfield_resource_type_id, label_resource_type_id) && result;
+        result = isTextFieldNotEmpty(textfield_resource_type_name, label_resource_type_name) && result;
+        result = isTextFieldNotEmpty(textfield_resource_type_nice_name, label_resource_type_nice_name) && result;
+        result = isTextFieldNotEmpty(textfield_resource_type_title, label_resource_type_title) && result;
+        result = isTextFieldNotEmpty(textfield_resource_type_description, label_resource_type_description) && result;
+        result = isTextFieldNotEmpty(textfield_schema_type_name, label_schema_type_name) && result;
+        this.updateUI();
+        return result;
+    }
+
     private void button_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_saveActionPerformed
-        generateCmsShellScriptForNewResourceType();
+
         try {
-            ActionUtils.runTarget(buildScript, new String[]{"build_create_new_resource_type"}, null);
+            if (areTextFieldsNotEmpty()) {
+                FileObject individualProp = projectDirectory.getFileObject("individual.properties");
+                FileObject defaultProp = projectDirectory.getFileObject("default.properties");
+                generateCmsShellScriptForNewResourceType(individualProp.getPath(), defaultProp.getPath());
+                ActionUtils.runTarget(buildScript, new String[]{"build_new_resource_type"}, null);
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                frame.setVisible(false);
+                frame.setEnabled(false);
+            }
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
         } catch (IllegalArgumentException ex) {
@@ -202,16 +299,51 @@ public class CreateNewResourceTypePanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_button_saveActionPerformed
 
+    private void button_iconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_iconActionPerformed
+        final JFileChooser chooser = invokeFileChooser("Select icon for resource type", JFileChooser.FILES_ONLY);
+        chooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addFileChooserActionPerformed(chooser, textfield_icon, evt);
+            }
+        });
+        chooser.showOpenDialog(chooser);
+    }//GEN-LAST:event_button_iconActionPerformed
+
+    private JFileChooser invokeFileChooser(String dialog, int selection_mode) {
+        JFileChooser chooser = new JFileChooser();
+        FileUtil.preventFileChooserSymlinkTraversal(chooser, null);
+        chooser.setDialogTitle(dialog);
+        chooser.setFileSelectionMode(selection_mode);
+        return chooser;
+    }
+
+    private void addFileChooserActionPerformed(JFileChooser chooser, JTextField textfield, java.awt.event.ActionEvent evt) {
+        if (evt.getActionCommand().equalsIgnoreCase("ApproveSelection")) {
+            setSelectedFileAsPathInTextField(chooser, textfield);
+        }
+    }
+
+    private void setSelectedFileAsPathInTextField(JFileChooser chooser, JTextField textfield) {
+        File dir = chooser.getSelectedFile();
+        String path = FileUtil.normalizeFile(dir).getAbsolutePath();
+        path = path.replace("\\", "/");
+        textfield.setText(path);
+        textfield.updateUI();
+        this.updateUI();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button_cancel;
+    private javax.swing.JButton button_icon;
     private javax.swing.JButton button_save;
+    private javax.swing.JLabel label_icon;
     private javax.swing.JLabel label_resource_type_description;
     private javax.swing.JLabel label_resource_type_id;
     private javax.swing.JLabel label_resource_type_name;
     private javax.swing.JLabel label_resource_type_nice_name;
     private javax.swing.JLabel label_resource_type_title;
     private javax.swing.JLabel label_schema_type_name;
+    private javax.swing.JTextField textfield_icon;
     private javax.swing.JTextField textfield_resource_type_description;
     private javax.swing.JTextField textfield_resource_type_id;
     private javax.swing.JTextField textfield_resource_type_name;

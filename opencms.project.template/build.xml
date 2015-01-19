@@ -205,6 +205,13 @@
         </ant>
     </target>
     
+    <!-- ######################## CREATION OF OPENCMS RESOURCE TYPE ################-->
+    <target name="shell_create_new_resource_type">
+        <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_createNewResourceType">
+            <property name="cmsSync" value="${cmsSyncWithSlash}"/>
+        </ant>
+    </target>
+    
     <!-- ######################## EXPORT OF OPENCMS MODULE ##################-->
     <target name="shell_export_module">
         <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_exportModule">
@@ -251,6 +258,7 @@
     
     <!-- ################################################################### -->
     <target name="build_new_module" depends="clean,dist,shell_create_new_module,shell_sync_module"/>
+    <target name="build_new_resource_type" depends="clean,dist,shell_create_new_resource_type"/>
     <target name="build_import_module" depends="clean,dist,shell_import_module,shell_sync_module"/>
     <target name="build_sync_folder_standalone" depends="clean,dist,shell_sync_module"/>
     <target name="build_cms_reverse_sync" depends="clean,dist,shell_export_module,move_module_to_packagedir"/>

@@ -19,7 +19,12 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="button_save" min="-2" pref="65" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="button_cancel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="label_resource_type_id" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="label_resource_type_name" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -27,6 +32,7 @@
                           <Component id="label_resource_type_title" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="label_resource_type_description" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="label_schema_type_name" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="label_icon" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -36,15 +42,13 @@
                           <Component id="textfield_resource_type_title" max="32767" attributes="0"/>
                           <Component id="textfield_resource_type_description" max="32767" attributes="0"/>
                           <Component id="textfield_schema_type_name" pref="392" max="32767" attributes="0"/>
+                          <Component id="textfield_icon" max="32767" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="button_save" min="-2" pref="65" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="button_cancel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="button_icon" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="24" max="32767" attributes="0"/>
+              <EmptySpace pref="40" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -81,7 +85,13 @@
                   <Component id="textfield_schema_type_name" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="label_schema_type_name" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="label_icon" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textfield_icon" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="button_icon" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="button_save" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="button_cancel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -194,6 +204,30 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_cancelActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="label_icon">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="CreateNewResourceTypePanel.label_icon.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textfield_icon">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="CreateNewResourceTypePanel.textfield_icon.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="button_icon">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="net/componio/opencms/projectstructure/plugin/dialogs/Bundle.properties" key="CreateNewResourceTypePanel.button_icon.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_iconActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

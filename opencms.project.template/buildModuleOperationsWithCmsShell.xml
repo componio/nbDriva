@@ -117,6 +117,19 @@
         </java>
     </target>
     
+    <target name="run_createNewResourceType">
+        <java classname="main.CmsShellMain">
+            <arg line="-webInf &quot;${cmsWebInfDir}&quot; -servletmapping &quot;${cmsServletMapping}&quot; -script ${scriptDir}/createNewResourceType.txt -additional additionalcommands.ModuleCommands"/>
+            <classpath path="build">
+                <dirset dir="${build.classes.dir}">
+                    <include name="**/*.class"/>
+                </dirset>
+                <pathelement path="${java.class.path}"/>
+                <pathelement path="${ivy.resolved.libs.dir}/${classpath-compile.jar}"/>
+            </classpath>
+        </java>
+    </target>
+    
     <target name="run_exportModule" depends="prepare_exportModule">
         <java classname="main.CmsShellMain">
             <arg line="-webInf &quot;${cmsWebInfDir}&quot; -servletmapping &quot;${cmsServletMapping}&quot; -script ${scriptDir}/exportModule.txt -additional additionalcommands.ModuleCommands"/>
