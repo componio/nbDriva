@@ -7,7 +7,7 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="opencms.project.template" default="default" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="opencms.project.template" default="default" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:git="antlib:com.rimerosolutions.ant.git">
    <description>Builds, tests, and runs the project renameMe</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
@@ -321,7 +321,30 @@
         <mkdir dir="${ivy.resolved.libs.dir}/default"/>
         <copy file="${ivy.jar.dir}/ivy_opencms_${opencms.version}.xml" tofile="${basedir}/ivy.xml" overwrite="true"/> 
         <ivy:settings file="${basedir}/ivysettings.xml"/>
+        <ivy:cachepath pathid="ant.git.tasks.classpath"/>
+        
+        <taskdef uri="antlib:com.rimerosolutions.ant.git" resource="com/rimerosolutions/ant/git/jgit-ant-lib.xml">
+            <classpath>
+                <path refid="ant.git.tasks.classpath"/>
+            </classpath>
+        </taskdef>
         <ivy:retrieve pattern="${ivy.resolved.libs.dir}/[conf]/[artifact]-[type]-[revision].[ext]"/>
+        <git:git directory="../../download/tmp" verbose="true">
+            <git:clone uri="https://github.com/componio/nbDriva" />
+        </git:git>
+        <move todir="../../download" failonerror="true">
+            <fileset dir="../../download/tmp">
+                <include name="*"/>
+            </fileset>
+        </move>
+        <git:git directory="../../download/tmp">
+            <git:rm>
+                <fileset dir="../../download/tmp" includes="*"/>
+            </git:rm>
+        </git:git>
+        <!-- 
+        <delete dir="../../download/tmp" includeEmptyDirs="true" quiet="true" performGCOnFailedDelete="true" deleteonexit="true" removenotfollowedsymlinks="true"/>
+        -->
     </target>
     <!-- ########################## END OF IVY SECTION ##################### -->
 </project>

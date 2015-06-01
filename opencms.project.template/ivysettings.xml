@@ -13,8 +13,13 @@
         <ibiblio name="org.restlet" root="http://maven.restlet.com" m2compatible="true"/>
         <ibiblio name="alfresco-jlan-embed" root="https://maven.alfresco.com/nexus/content/repositories/releases/" m2compatible="true"/>
         <ibiblio name="spring-webscripts" root="https://maven.alfresco.com/nexus/content/repositories/releases/" m2compatible="true"/>
+        <url name="sonatype-snapshots" m2compatible="true">
+            <artifact pattern="https://oss.sonatype.org/content/repositories/snapshots/[organisation]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
+        </url>
+        <ibiblio name="central" m2compatible="true"/>
     </resolvers>
     <modules>
+      <module organisation="com.rimerosolutions.ant" resolver="sonatype-snapshots"/>
       <module organisation="net.componio" resolver="opencms.shell.extension"/>
       <module organisation="cryptix-jce" resolver="cryptix-jce-provider"/>
       <module organisation="org.restlet.jee" resolver="org.restlet"/>

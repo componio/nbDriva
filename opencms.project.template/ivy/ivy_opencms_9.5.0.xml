@@ -2,14 +2,20 @@
 <ivy-module version="2.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd" xmlns:m="http://ant.apache.org/ivy/maven">
     <info organisation="componio" module="libraries"/>
     <dependencies>
-         <dependency org="net.componio" name="opencms.shell.extension" rev="0.9.4_95x" transitive="false"/>
+        <dependency org="net.componio" name="opencms.shell.extension" rev="0.9.4_95x" transitive="false"/>
         <dependency org="cryptix-jce" name="cryptix-jce-provider" rev="20050328" force="true" transitive="false"/>
-        
         <dependency org="org.alfresco" name="alfresco-jlan-embed" rev="4.2.f" force="true" transitive="true"/>
         <dependency org="org.springframework.extensions.surf" name="spring-surf-core" rev="1.2.1-M1"/> 
         <dependency org="org.springframework.extensions.surf" name="spring-surf-core-configservice" rev="1.2.1-M1"/>
         <dependency org="org.restlet.jee" name="org.restlet" rev="2.1.1"/>
         <dependency org="org.restlet.jee" name="org.restlet.ext.servlet" rev="2.1.1"/>
+        
+        <!-- dependencies for git over ANT -->
+        <dependency org="org.eclipse.jgit" name="org.eclipse.jgit.ant" rev="3.0.0.201306101825-r"/>
+        <dependency org="org.eclipse.jgit" name="org.eclipse.jgit" rev="3.0.0.201306101825-r"/>
+        <dependency org="com.jcraft" name="jsch" rev="0.1.50"/>
+        <dependency org="com.rimerosolutions.ant" name="ant-git-tasks" rev="1.0.3-SNAPSHOT" changing="true"/>
+
         <!--OpenCms 9 dependencies -->
         
         <dependency org="org.opencms" name="opencms-core" rev="9.5.0"/>
