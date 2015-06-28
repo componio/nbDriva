@@ -93,7 +93,7 @@ public class OpenCmsProjectStructureTemplatePanelVisual extends JPanel implement
         OpenCmsVersionLabel.setLabelFor(createdFolderTextField);
         org.openide.awt.Mnemonics.setLocalizedText(OpenCmsVersionLabel, org.openide.util.NbBundle.getMessage(OpenCmsProjectStructureTemplatePanelVisual.class, "OpenCmsProjectStructureTemplatePanelVisual.OpenCmsVersionLabel.text")); // NOI18N
 
-        opencmsVersionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "8.5.0", "8.5.1", "8.5.2", "9.0.0", "9.0.1", "9.5.0" }));
+        opencmsVersionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "8.5.0", "8.5.1", "8.5.2", "9.0.0", "9.0.1", "9.5.0", "9.5.1", "9.5.2" }));
         opencmsVersionComboBox.setToolTipText(org.openide.util.NbBundle.getMessage(OpenCmsProjectStructureTemplatePanelVisual.class, "OpenCmsProjectStructureTemplatePanelVisual.opencmsVersionComboBox.toolTipText")); // NOI18N
         opencmsVersionComboBox.setAutoscrolls(true);
         opencmsVersionComboBox.addActionListener(new java.awt.event.ActionListener() {

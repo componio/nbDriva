@@ -7,8 +7,6 @@ package net.componio.opencms.projectstructure.plugin.dialogs;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,6 +16,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import net.componio.opencms.projectstructure.plugin.helper.ModulePropertiesHelper;
 import org.openide.filesystems.FileUtil;
 import org.openide.util.Exceptions;
 
@@ -35,9 +34,8 @@ public class ModulePropertiesPluginPanel extends javax.swing.JPanel {
      */
     public ModulePropertiesPluginPanel(String individualConfigFile, String defaultConfigFile) throws IOException {
         initComponents();
-
         this.individualConfigPath = individualConfigFile;
-        initModuleProperties(individualConfigFile, defaultConfigFile);
+        module_properties = ModulePropertiesHelper.getModuleProperties(individualConfigFile, defaultConfigFile);
         updateComponentsWithPropertyValues();
         assignDocumentListenersToComponents();
     }
@@ -147,21 +145,7 @@ public class ModulePropertiesPluginPanel extends javax.swing.JPanel {
         }
     }
 
-    private void initModuleProperties(String individualConfigFile, String defaultConfigFile) throws FileNotFoundException, IOException {
-        FileInputStream inputStream = null;
-        inputStream = new FileInputStream(individualConfigFile);
-        module_properties.load(inputStream);
-
-        inputStream = new FileInputStream(defaultConfigFile);
-        Properties default_props = new Properties();
-        default_props.load(inputStream);
-
-        for (String key : default_props.stringPropertyNames()) {
-            if (!module_properties.containsKey(key)) {
-                module_properties.put(key, default_props.getProperty(key));
-            }
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

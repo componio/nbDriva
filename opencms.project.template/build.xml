@@ -256,12 +256,19 @@
         </ant>
     </target>
     
+     <target name="shell_reverse_sync_single" unless="sync.cmis.property.is.true">
+        <ant inheritAll="true" antfile="./buildModuleOperationsWithCmsShell.xml" target="run_reverseSyncSingle">
+            <property name="cmsSync" value="${cmsSyncWithSlash}"/>
+        </ant>
+    </target>
+    
     <!-- ################################################################### -->
     <target name="build_new_module" depends="clean,dist,shell_create_new_module,shell_sync_module"/>
     <target name="build_new_resource_type" depends="clean,dist,shell_create_new_resource_type"/>
     <target name="build_import_module" depends="clean,dist,shell_import_module,shell_sync_module"/>
     <target name="build_sync_folder_standalone" depends="clean,dist,shell_sync_module"/>
     <target name="build_cms_reverse_sync" depends="clean,dist,shell_export_module,move_module_to_packagedir"/>
+    <target name="build_cms_reverse_single" depends="clean,dist,shell_reverse_sync_single"/>
   
      <!--########################################################################
          ################# End of OpenCms Operations Section ####################
@@ -323,12 +330,14 @@
         <ivy:settings file="${basedir}/ivysettings.xml"/>
         <ivy:cachepath pathid="ant.git.tasks.classpath"/>
         
+        <!--
         <taskdef uri="antlib:com.rimerosolutions.ant.git" resource="com/rimerosolutions/ant/git/jgit-ant-lib.xml">
             <classpath>
                 <path refid="ant.git.tasks.classpath"/>
             </classpath>
         </taskdef>
         <ivy:retrieve pattern="${ivy.resolved.libs.dir}/[conf]/[artifact]-[type]-[revision].[ext]"/>
+        
         <git:git directory="../../download/tmp" verbose="true">
             <git:clone uri="https://github.com/componio/nbDriva" />
         </git:git>
@@ -342,7 +351,7 @@
                 <fileset dir="../../download/tmp" includes="*"/>
             </git:rm>
         </git:git>
-        <!-- 
+        
         <delete dir="../../download/tmp" includeEmptyDirs="true" quiet="true" performGCOnFailedDelete="true" deleteonexit="true" removenotfollowedsymlinks="true"/>
         -->
     </target>

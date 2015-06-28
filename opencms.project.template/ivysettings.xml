@@ -11,8 +11,10 @@
         <ibiblio name="opencms.shell.extension" root="https://raw.githubusercontent.com/tpinky/shellDriva/master/lib-repo/" m2compatible="true"/>
         <ibiblio name="cryptix-jce-provider" root="https://raw.githubusercontent.com/tpinky/shellDriva/master/lib-repo/" m2compatible="true"/>
         <ibiblio name="org.restlet" root="http://maven.restlet.com" m2compatible="true"/>
-        <ibiblio name="alfresco-jlan-embed" root="https://maven.alfresco.com/nexus/content/repositories/releases/" m2compatible="true"/>
-        <ibiblio name="spring-webscripts" root="https://maven.alfresco.com/nexus/content/repositories/releases/" m2compatible="true"/>
+        <ibiblio name="alfresco-jlan-embed" root="https://maven.alfresco.com/nexus/service/local/repositories/releases/content/" m2compatible="true"/>
+        
+        <ibiblio name="spring-webscripts" root="https://maven.alfresco.com/nexus/service/local/repositories/releases/content/" m2compatible="true"/>
+        <!--<ibiblio name="spring-webscripts" root="https://maven.alfresco.com/nexus/content/repositories/releases/" m2compatible="true"/>-->
         <url name="sonatype-snapshots" m2compatible="true">
             <artifact pattern="https://oss.sonatype.org/content/repositories/snapshots/[organisation]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]"/>
         </url>

@@ -157,15 +157,8 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="opencmsVersionComboBox">
       <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="6">
-            <StringItem index="0" value="8.5.0"/>
-            <StringItem index="1" value="8.5.1"/>
-            <StringItem index="2" value="8.5.2"/>
-            <StringItem index="3" value="9.0.0"/>
-            <StringItem index="4" value="9.0.1"/>
-            <StringItem index="5" value="9.5.0"/>
-          </StringArray>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;8.5.0&quot;, &quot;8.5.1&quot;, &quot;8.5.2&quot;, &quot;9.0.0&quot;, &quot;9.0.1&quot;, &quot;9.5.0&quot;, &quot;9.5.1&quot;, &quot;9.5.2&quot; })" type="code"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="net/componio/opencms/projectstructure/plugin/Bundle.properties" key="OpenCmsProjectStructureTemplatePanelVisual.opencmsVersionComboBox.toolTipText" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>

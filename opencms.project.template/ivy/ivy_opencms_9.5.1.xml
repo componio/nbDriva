@@ -18,8 +18,8 @@
 
         <!--OpenCms 9 dependencies -->
         
-        <dependency org="org.opencms" name="opencms-core" rev="9.5.2"/>
-        <dependency org="org.opencms" name="opencms-setup" rev="9.5.2"/>
+        <dependency org="org.opencms" name="opencms-core" rev="9.5.1"/>
+        <dependency org="org.opencms" name="opencms-setup" rev="9.5.1"/>
         <dependency org="dom4j" name="dom4j" rev="1.6.1">
             <exclude org="jdom" name="jdom"/>
             <exclude org="xml-apis" name="xml-apis"/>
