@@ -330,14 +330,13 @@
         <ivy:settings file="${basedir}/ivysettings.xml"/>
         <ivy:cachepath pathid="ant.git.tasks.classpath"/>
         
+        <ivy:retrieve pattern="${ivy.resolved.libs.dir}/[conf]/[artifact]-[type]-[revision].[ext]"/>
         <!--
         <taskdef uri="antlib:com.rimerosolutions.ant.git" resource="com/rimerosolutions/ant/git/jgit-ant-lib.xml">
             <classpath>
                 <path refid="ant.git.tasks.classpath"/>
             </classpath>
         </taskdef>
-        <ivy:retrieve pattern="${ivy.resolved.libs.dir}/[conf]/[artifact]-[type]-[revision].[ext]"/>
-        
         <git:git directory="../../download/tmp" verbose="true">
             <git:clone uri="https://github.com/componio/nbDriva" />
         </git:git>
@@ -351,7 +350,6 @@
                 <fileset dir="../../download/tmp" includes="*"/>
             </git:rm>
         </git:git>
-        
         <delete dir="../../download/tmp" includeEmptyDirs="true" quiet="true" performGCOnFailedDelete="true" deleteonexit="true" removenotfollowedsymlinks="true"/>
         -->
     </target>

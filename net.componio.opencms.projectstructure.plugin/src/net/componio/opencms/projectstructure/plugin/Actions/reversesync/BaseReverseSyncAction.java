@@ -5,6 +5,7 @@
  */
 package net.componio.opencms.projectstructure.plugin.actions.reversesync;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.util.Properties;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JOptionPane;
 import net.componio.opencms.projectstructure.plugin.helper.ModulePropertiesHelper;
 import org.apache.tools.ant.module.api.support.ActionUtils;
 import org.openide.actions.OpenAction;
@@ -33,19 +35,19 @@ public class BaseReverseSyncAction extends AbstractAction implements ActionListe
 
     private final DataObject context;
     private static OpenAction action = new OpenAction();
-    
+
     public static OpenAction getOpenAction() {
         return action;
     }
-    
+
     BaseReverseSyncAction() {
         context = null;
     }
 
     public BaseReverseSyncAction(DataObject cont) {
         context = cont;
-        this.setEnabled(verifyProject(context.getPrimaryFile()) 
-                && context.getPrimaryFile().getPath().contains("Web"));
+        this.setEnabled(verifyProject(context.getPrimaryFile())
+                && context.getPrimaryFile().getPath().contains("Web") && !context.getPrimaryFile().getName().equalsIgnoreCase("Web"));
         putValue(DynamicMenuContent.HIDE_WHEN_DISABLED, true);
         putValue(NAME, "Reverse Sync");
     }
@@ -127,17 +129,20 @@ public class BaseReverseSyncAction extends AbstractAction implements ActionListe
         if (ev.getActionCommand().equals("Reverse Sync")) {
             FileObject buildScript = getQueryFileObject(context.getPrimaryFile(), "build.xml");
             try {
-                boolean success = generateCmsScript();
-                if (success) {
-                    ActionUtils.runTarget(buildScript, new String[]{"build_cms_reverse_single"}, null);
+                int result = JOptionPane.showConfirmDialog((Component) null, "The file will be overriden.\n Do you want to continue?\n",
+                        "Reverse Sync", JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION) {
+                    boolean success = generateCmsScript();
+                    if (success) {
+                        ActionUtils.runTarget(buildScript, new String[]{"build_cms_reverse_single"}, null);
+                    }
                 }
             } catch (IOException ex) {
                 Exceptions.printStackTrace(ex);
             } catch (IllegalArgumentException ex) {
                 Exceptions.printStackTrace(ex);
             }
-        }
-        else {
+        } else {
             //action.setEnabled(true);
             getOpenAction().createContextAwareInstance(this.context.getNodeDelegate().getLookup());
             getOpenAction().actionPerformed(ev);
