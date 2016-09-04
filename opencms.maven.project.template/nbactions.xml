@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Create Module</actionName>
+            <displayName>Create Module</displayName>
+            <goals>
+                <goal>install</goal>
+                <goal>opencms-shell:cms_shell_script</goal>
+            </goals>
+            <properties>
+                <cms_script>./createNewModule.txt</cms_script>
+                <additional_command_class>additionalcommands.ModuleCommands</additional_command_class>
+                <servlet_mapping>""</servlet_mapping>
+                <web_inf>${cmsWebInfDir}</web_inf>
+
+            </properties>
+        </action>
+    </actions>

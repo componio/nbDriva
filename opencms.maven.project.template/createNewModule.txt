@@ -1,0 +1,13 @@
+#
+# Script: Create New Module
+
+# Turn echo on
+echo on
+# Login the Admin user
+login "Admin" "admin"
+setCurrentProject "Offline"
+#createDefaultProject "Offline" "The Offline Project"
+createNewModule "opencms.maven.project.template" "1.0" ""
+# Publish the project
+unlockCurrentProject
+publishResources "/system/modules/opencms.maven.project.template" true

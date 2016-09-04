@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.componio</groupId>
+    <artifactId>opencms.maven.project.template</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    
+
+    <name>opencms.maven.project.template</name>
+    
+    
+            
+    <properties>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    
+    <repositories>
+        <repository>
+            <id>componio Repo</id>
+            <name>componio Repo</name>
+            <url>https://raw.githubusercontent.com/tpinkowski/shellDriva/master/lib-repo</url>
+            <releases>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+        </repository>
+        <repository>     
+            <id>alfresco-public</id>      
+            <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>   
+        </repository>  
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id> componio plugin repo</id>
+            <name> componio plugin repo</name>
+            <url>https://raw.githubusercontent.com/tpinkowski/shellDriva/master/lib-repo</url>
+            <releases>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+                    
+        </pluginRepository>
+        <pluginRepository>     
+            <id>alfresco-public</id>      
+            <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>   
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.componio</groupId>
+            <artifactId>opencms.shell.extension</artifactId>
+            <version>0.9.5_10.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.opencms</groupId>
+                    <artifactId>opencms-core</artifactId>
+                </exclusion>
+            </exclusions>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>cryptix-jce</groupId>
+            <artifactId>cryptix-jce-provider</artifactId>
+            <version>20050328</version>
+        </dependency>
+        <dependency>
+            <groupId>org.opencms</groupId>
+            <artifactId>opencms-core</artifactId>
+            <version>10.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.opencms</groupId>
+            <artifactId>opencms-setup</artifactId>
+            <version>10.0.0</version>
+        </dependency> 
+        <dependency>
+            <groupId>org.alfresco</groupId>
+            <artifactId>alfresco-jlan</artifactId>
+            <version>3.3.0-preview-1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+            <version>3.2.6-alfresco-patched</version>
+        </dependency>       
+    </dependencies>
+
+    <build>
+        <plugins>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <compilerArguments>
+                        <endorseddirs>${endorsed.dir}</endorseddirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${endorsed.dir}</outputDirectory>
+                            <silent>true</silent>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>javax</groupId>
+                                    <artifactId>javaee-endorsed-api</artifactId>
+                                    <version>7.0</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0-alpha-2</version>
+                <executions>
+                    <!-- Associate the read-project-properties goal with the initialize phase, to read the properties file. -->
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>nbDriva.properties</file>
+                                <file>individual.properties</file>
+                                <file>default.properties</file>
+                            </files>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        
+            <plugin>
+                <groupId>net.componio</groupId>
+                <artifactId>opencms-shell-maven-plugin</artifactId>
+                <version>0.9</version>
+                
+                <dependencies>
+                    <dependency>
+                        <groupId>net.componio</groupId>
+                        <artifactId>opencms.shell.extension</artifactId>
+                        <version>0.9.5_10.0.1</version>
+                        <type>jar</type>
+                    </dependency>
+                    <dependency>
+                        <groupId>cryptix-jce</groupId>
+                        <artifactId>cryptix-jce-provider</artifactId>
+                        <version>20050328</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.opencms</groupId>
+                        <artifactId>opencms-core</artifactId>
+                        <version>10.0.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.opencms</groupId>
+                        <artifactId>opencms-setup</artifactId>
+                        <version>10.0.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.opencms</groupId>
+                        <artifactId>org.opencms.workplace</artifactId>
+                        <version>10.0.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.opencms</groupId>
+                        <artifactId>org.opencms.apollo.template.webform</artifactId>
+                        <version>10.0.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.alfresco</groupId>
+                        <artifactId>alfresco-jlan</artifactId>
+                        <version>3.3.0-preview-1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate</artifactId>
+                        <version>3.2.6-alfresco-patched</version>
+                    </dependency>       
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
