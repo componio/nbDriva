@@ -5,14 +5,30 @@
             <displayName>Create Module</displayName>
             <goals>
                 <goal>install</goal>
-                <goal>opencms-shell:cms_shell_script</goal>
+                <goal>antrun:run@sync-local-folders</goal>
+                <goal>opencms-shell:cms_shell_command@create-module</goal>
+                <goal>opencms-shell:cms_shell_command@sync-module</goal>
             </goals>
-            <properties>
-                <cms_script>./createNewModule.txt</cms_script>
-                <additional_command_class>additionalcommands.ModuleCommands</additional_command_class>
-                <servlet_mapping>""</servlet_mapping>
-                <web_inf>${cmsWebInfDir}</web_inf>
-
-            </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-Sync Module</actionName>
+            <displayName>Sync Module</displayName>
+            <goals>
+                <goal>install</goal>
+                <goal>antrun:run@sync-local-folders</goal>
+                <goal>opencms-shell:cms_shell_command@sync-module</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-Reverse Sync Module</actionName>
+            <displayName>Reverse Sync Module</displayName>
+            <goals>
+                <goal>install</goal>
+                <goal>antrun:run@sync-local-folders</goal>
+                <goal>opencms-shell:cms_shell_command@sync-module</goal>
+                <goal>opencms-shell:cms_shell_command@reverse-sync-module</goal>
+                <goal>copy:copy@reverse-copy</goal>
+            </goals>
+        </action>
+        
     </actions>

@@ -7,16 +7,12 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     
-
     <name>opencms.maven.project.template</name>
-    
-    
             
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
     
     <repositories>
         <repository>
@@ -96,7 +92,6 @@
 
     <build>
         <plugins>
-            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -163,12 +158,63 @@
                     </execution>
                 </executions>
             </plugin>
-        
+            
             <plugin>
                 <groupId>net.componio</groupId>
                 <artifactId>opencms-shell-maven-plugin</artifactId>
                 <version>0.9</version>
-                
+                <executions>
+                    <execution>
+                        <id>create-module</id>
+                        <phase>dummy-phase</phase>
+                        <configuration>
+                            <web_inf>${cmsWebInfDir}</web_inf>
+                            <additional_commands>additionalcommands.ModuleCommands</additional_commands>
+                            <servlet_mapping>""</servlet_mapping>
+                            <commands>
+                                echo on
+                                login "${username}" "${password}"
+                                setCurrentProject "Offline"
+                                createNewModule "${modulename}" "${module.version}" ""
+                                unlockCurrentProject
+                                publishResources "${modulepath}/${modulename}" true
+                            </commands>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>sync-module</id>
+                        <phase>dummy-phase</phase>
+                        <configuration>
+                            <web_inf>${cmsWebInfDir}</web_inf>
+                            <additional_commands>additionalcommands.ModuleCommands</additional_commands>
+                            <servlet_mapping>""</servlet_mapping>
+                            <commands>
+                                echo on
+                                login "${username}" "${password}"
+                                setCurrentProject "Offline"
+                                syncRFSandVFSExclusionFile "${cmsSync}" "${modulepath}/${modulename}" "${exclusionFile}"
+                                unlockCurrentProject
+                            </commands>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>reverse-sync-module</id>
+                        <phase>dummy-phase</phase>
+                        <configuration>
+                            <web_inf>${cmsWebInfDir}</web_inf>
+                            <additional_commands>additionalcommands.ModuleCommands</additional_commands>
+                            <servlet_mapping>""</servlet_mapping>
+                            <commands>
+                                echo on
+                                login "${username}" "${password}"
+                                setCurrentProject "Offline"
+                                exportModule "${modulename}"
+                                unlockCurrentProject
+                                publishResource "${modulepath}/${modulename}" true
+                            </commands>
+                        </configuration>
+                    </execution>
+                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>net.componio</groupId>
@@ -213,7 +259,66 @@
                     </dependency>       
                 </dependencies>
             </plugin>
+            
+            <plugin>
+                <groupId>ch.mfrey.maven.plugin</groupId>
+                <artifactId>copy-maven-plugin</artifactId>
+                <version>0.0.4</version>
+                <executions>
+                    <execution>
+                        <id>reverse-copy</id>
+                        <phase>phase-dummy</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>  
+                            <showfiles>true</showfiles>
+                            <resources>
+                                <resource>
+                                    <replaceExisting>true</replaceExisting>
+                                    <workOnFullPath>true</workOnFullPath>
+                                    <directory>${moduleDir}</directory>
+                                    <move>true</move>
+                                    <includes>
+                                        <include>${modulename}*.zip</include>
+                                    </includes>
+                                    <paths>
+                                        <path>
+                                            <from>${moduleDir}</from>
+                                            <to>${packagePath}</to>
+                                        </path>
+                                    </paths>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>sync-local-folders</id>
+                        <phase>no phase</phase>
+                        <configuration>
+                            <target>
+                                <sync todir="${cmsSync}${modulepath}/${modulename}">
+                                    <fileset dir="src/main/webapp"/>
+                                </sync>
+                                <sync todir="${cmsSync}${modulepath}/${modulename}/classes">
+                                    <fileset dir="target/classes">
+                                        <exclude name=".netbeans_automatic_build"/>
+                                    </fileset>
+                                </sync> 
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
 </project>
