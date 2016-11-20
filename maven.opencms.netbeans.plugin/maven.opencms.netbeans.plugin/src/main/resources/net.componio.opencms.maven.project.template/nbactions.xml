@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Create Module</actionName>
+            <displayName>Create Module</displayName>
+            <goals>
+                <goal>install</goal>
+                <goal>antrun:run@sync-local-folders</goal>
+                <goal>opencms-shell:cms_shell_command@create-module</goal>
+                <goal>opencms-shell:cms_shell_command@sync-module</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-Sync Module</actionName>
+            <displayName>Sync Module</displayName>
+            <goals>
+                <goal>install</goal>
+                <goal>antrun:run@sync-local-folders</goal>
+                <goal>opencms-shell:cms_shell_command@sync-module</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-Reverse Sync Module</actionName>
+            <displayName>Reverse Sync Module</displayName>
+            <goals>
+                <goal>install</goal>
+                <goal>antrun:run@sync-local-folders</goal>
+                <goal>opencms-shell:cms_shell_command@sync-module</goal>
+                <goal>opencms-shell:cms_shell_command@reverse-sync-module</goal>
+                <goal>copy:copy@reverse-copy</goal>
+            </goals>
+        </action>
+        
+    </actions>

@@ -1,3 +1,5 @@
+/opencms.maven.project.template/target
+/opencms.maven.project.template/cmsSync
 /opencms.project.template/nbproject/private/
 /opencms.project.template/dist/
 /opencms.project.template/build/
@@ -13,3 +15,5 @@
 /net.componio.nbdriva.module.suite/org-apache-tools-ant-module-library-wrapper/nbproject/private/
 /net.componio.nbdriva.module.suite/nbproject/private/
 opencms.project.template/lib/pack.jar
+/maven.opencms.netbeans.plugin/maven.opencms.netbeans.plugin/src/main/resources/net.componio.opencms.maven.project.template/target/
+/maven.opencms.netbeans.plugin/maven.opencms.netbeans.plugin/target/
